@@ -1,0 +1,144 @@
+:root{
+    --h: 38px;          /* hauteur des boutons */
+    --br: 2px;          /* bordure uniforme */
+    --logoSize: 92px;   /* taille logo central */
+}
+
+header{
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-inner{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 28px;
+}
+
+.header-left,
+.header-right{
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+
+/* --- Bouton burger --- */
+.menu-toggle{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 22px;
+    height: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+.menu-toggle span{
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #000;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+/* --- Bouton COMMANDEZ --- */
+.order{
+    display: flex;
+    border: var(--br) solid #fd6b00;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+}
+.order-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FF6C00;
+    width: 38px;
+    height: var(--h);
+}
+.order-icon img{
+    width: 18px;
+    height: 18px;
+}
+.order-text{
+    display: flex;
+    align-items: center;
+    height: var(--h);
+    line-height: calc(var(--h) - 4px);
+    padding: 0 18px;
+    letter-spacing: 1.1px;
+}
+
+/* --- Logo central --- */
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-img{
+    width: var(--logoSize);
+    height: var(--logoSize);
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translateY(-1px);
+}
+
+/* --- Téléphone & Horaires --- */
+.phone{
+    display: flex;
+    align-items: center;
+    background: #111;
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    height: var(--h);
+    line-height: calc(var(--h) - 4px);
+    padding: 0 18px;
+    border: var(--br) solid #111;
+    letter-spacing: 1.1px;
+    text-decoration: none;
+}
+.hours{
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    font-size: 13px;
+    height: var(--h);
+    line-height: calc(var(--h) - 4px);
+    padding: 0 18px;
+    border: var(--br) solid #000;
+    letter-spacing: 1.1px;
+    text-decoration: none;
+}
+
+/* --- Hover --- */
+.order:hover .order-text,
+.hours:hover{ background: #f4f4f4; }
+.phone:hover{ filter: brightness(1.07); }
+
+/* --- Responsive --- */
+@media (max-width: 640px){
+    :root{ --h: 34px; --logoSize: 78px; }
+    .order-text, .phone, .hours{
+        padding: 0 12px;
+        letter-spacing: 1px;
+    }
+}
+.menu-toggle{ position:relative; width:24px; height:18px; }
+.menu-toggle span{ height:2px; width:100%; background:#000; border-radius:1px; transition:transform .25s, opacity .2s; display:block; }
+.menu-toggle.is-active span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+.menu-toggle.is-active span:nth-child(2){ opacity:0; }
+.menu-toggle.is-active span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+

@@ -1,0 +1,221 @@
+/* ===============================
+   Variables globales
+   =============================== */
+:root{
+    --overlay: rgba(0,0,0,.82); /* Couleur du fond semi-transparent du menu */
+    --white: #ffffff;
+    --muted: #cfcfcf;
+    --gold:  #b9965a;
+    --gap:   32px;              /* Espacement standard */
+    --maxw:  1280px;             /* Largeur max du panneau */
+    --font:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ===============================
+   Overlay du menu (plein écran)
+   =============================== */
+.menu-overlay{
+    position: fixed; inset: 0; z-index: 1200;
+    display: grid; place-items: center;
+    background: var(--overlay);
+    opacity: 0; visibility: hidden;
+    transition: .35s ease; /* Animation apparition/disparition */
+}
+.menu-overlay.is-open{
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===============================
+   Panneau principal du menu
+   =============================== */
+.menu-panel{
+    width: min(96vw, var(--maxw));
+    height: min(92vh, 800px);
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    transform: translateY(12px);
+    transition: .4s ease; /* Animation montée */
+}
+.menu-overlay.is-open .menu-panel{
+    transform: translateY(0);
+}
+
+/* ===============================
+   Bouton de fermeture (croix)
+   =============================== */
+.menu-close{
+    position:absolute; left:22px; top:18px; z-index:5;
+    width:36px; height:36px;
+    background:transparent;
+    border:0;
+    cursor:pointer;
+}
+.menu-close span{
+    position:absolute; left:6px; right:6px; top:17px;
+    height:2px; background:#111;
+    transform-origin:center;
+}
+.menu-close span:first-child{ transform: rotate(45deg); }
+.menu-close span:last-child{  transform: rotate(-45deg); }
+
+/* ===============================
+   Grille interne (gauche: liens / droite: image)
+   =============================== */
+.menu-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap:0;
+    height:100%;
+}
+
+/* ===============================
+   Colonne gauche : contenu texte
+   =============================== */
+.menu-left{
+    padding: 72px 48px 36px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    color:#111;
+    font-family: var(--font);
+}
+
+/* Liste des liens principaux */
+.menu-list{
+    list-style:none;
+    padding:0;
+    margin:0 0 18px 0;
+}
+.menu-list li{ margin: 14px 0; }
+.menu-list a{
+    text-decoration:none;
+    color:#111;
+    font-size: clamp(18px, 2.1vw, 26px);
+    font-weight: 600;
+    letter-spacing: .6px;
+    position: relative;
+}
+.menu-list a::after{
+    content:"";
+    position:absolute; left:0; bottom:-6px;
+    width:0; height:2px;
+    background:#111;
+    transition: width .25s ease;
+}
+.menu-list a:hover::after{ width: 64px; }
+.menu-list a:focus-visible{
+    outline: 2px dashed #222;
+    outline-offset: 4px;
+}
+
+/* ===============================
+   Bouton HORAIRES (version corrigée compacte)
+   =============================== */
+.menu-hours{
+    display:inline-flex;             /* alignement horizontal du texte/icone */
+    align-items:center;
+    gap:10px;                        /* espace si icône présente */
+    height:38px;                     /* hauteur fixe */
+    padding:0 16px;                  /* marges internes gauche/droite */
+    border:2px solid #111;
+    background:#fff;
+    color:#111;
+    font-weight:800;
+    letter-spacing:1px;
+    text-decoration:none;
+    border-radius:8px;               /* coins arrondis */
+    box-shadow:0 0 0 0 transparent;
+    transition:background .2s ease, color .2s ease, transform .06s ease;
+    width:auto;                      /* largeur auto */
+    max-width:fit-content;
+    margin: 6px 0 22px;              /* espace autour */
+}
+.menu-hours:hover{
+    background:#111;
+    color:#fff;
+}
+.menu-hours:active{
+    transform: translateY(1px);      /* effet clic */
+}
+.menu-hours .ico{
+    width:18px;
+    height:18px;
+    display:inline-block;
+}
+
+/* ===============================
+   Réseaux sociaux
+   =============================== */
+.menu-socials{
+    display:flex;
+    gap:14px;
+    margin: 4px 0 20px;
+}
+.s{
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    border-radius:8px;
+}
+.s-fb{ color:#4267B2; background:#eef3ff; }
+.s-ig{ color:#E1306C; background:#ffeef6; }
+.s-order{ color:#fff; background:#F07F23; }
+
+/* ===============================
+   Adresse & contact
+   =============================== */
+.menu-address{
+    font-style:normal;
+    color:#222;
+}
+.menu-address a{
+    color:#111;
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+}
+.menu-address a:hover{
+    border-color:#111;
+}
+
+/* ===============================
+   Colonne droite : image
+   =============================== */
+.menu-right{
+    position:relative;
+    overflow:hidden;
+}
+.media{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+.media-img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform: scale(1.02);
+    transition: opacity .35s ease, transform .6s ease;
+    border-left: 1px solid #eee;
+    border-radius: 0 18px 18px 0;
+}
+.media-img.is-active{
+    opacity:1;
+    transform: none;
+}
+
+/* ===============================
+   Responsive
+   =============================== */
+@media (max-width: 980px){
+    .menu-panel{ height: min(94vh, 720px); }
+    .menu-grid{ grid-template-columns: 1fr; }
+    .menu-right{ display:none; } /* Masque l'image sur mobile */
+    .menu-left{ padding: 70px 24px 24px; }
+}
