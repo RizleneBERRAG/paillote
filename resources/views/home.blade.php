@@ -18,14 +18,55 @@
 
 {{-- MENU OVERLAY --}}
 @include('layouts.menu')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var header = document.querySelector('.site-header');
+        if (!header) return;
+
+        var last = 0;
+        function onScroll(){
+            var y = window.pageYOffset || document.documentElement.scrollTop;
+            if (y > 4 && !header.classList.contains('is-scrolled')) {
+                header.classList.add('is-scrolled');
+            } else if (y <= 4 && header.classList.contains('is-scrolled')) {
+                header.classList.remove('is-scrolled');
+            }
+            last = y;
+        }
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    });
+</script>
 
 {{-- CONTENU DE LA PAGE --}}
 <main>
-    <section class="hero" style="padding:48px 24px; max-width:1180px; margin:0 auto;">
-        <h1 style="margin:0 0 8px;">Bienvenue à La Paillote Fidésienne</h1>
-        <p style="margin:0;color:#444">Restaurant de burgers maison à Sainte-Foy-Lès-Lyon.</p>
-    </section>
-    {{-- Ajoute ici tes autres sections d’accueil --}}
+    <main>
+
+        {{-- HERO plein écran largeur, image de fond --}}
+        <section class="home-hero"></section>
+
+        {{-- Titre + localisation --}}
+        <section class="home-intro">
+            <h2 class="intro-title">
+                L’ART DU BURGER MAISON — DANS UN CADRE CHALEUREUX À<br>
+                SAINTE-FOY-LÈS-LYON
+            </h2>
+            <p class="intro-loc">France | Sainte-Foy-Lès-Lyon</p>
+        </section>
+
+        {{-- Citation encadrée noire avec guillemets dorés --}}
+        <section class="home-quote">
+            <figure class="quote-card">
+                <blockquote>
+                    Chez La Paillote Fidésienne, chaque plat est préparé avec passion, des produits frais et une touche de créativité.
+                    Que ce soit pour une pause déjeuner rapide ou un dîner entre amis, notre équipe vous accueille dans un lieu convivial,
+                    moderne et raffiné.
+                </blockquote>
+            </figure>
+        </section>
+
+    </main>
+
 </main>
 
 {{-- FOOTER --}}
@@ -73,6 +114,9 @@
         });
     });
 </script>
+
+<link rel="stylesheet" href="{{ asset('css/home.css') }}">
+
 
 </body>
 </html>

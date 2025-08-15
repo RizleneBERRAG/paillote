@@ -46,65 +46,75 @@
             </div>
         </div>
     </section>
+    <br>
 
-    {{-- Bloc principal noir --}}
+    {{-- ===== Bloc principal noir (refonte légère) ===== --}}
     <section class="footer-main">
-        <div class="footer-grid">
-            {{-- Colonne gauche : logo + coordonnées --}}
-            <div class="col col-left">
-                <div class="brand">
-                    <img src="{{ asset('images/logo-round.png') }}" alt="La Paillote Fidésienne" class="brand-logo">
-                </div>
+        <div class="footer-container">
+            <div class="f-left">
+                <img src="{{ asset('images/logo-round.png') }}" alt="La Paillote Fidésienne" class="brand-logo">
+                <br>
 
                 <address class="addr">
                     <p>1 Av. de Limburg,<br>69110 Sainte-Foy-Lès-Lyon<br>France</p>
-                    <p><a href="tel:+33744271261">07 44 27 12 61</a><br>
-                        <a href="mailto:lapaillote110@gmail.com">lapaillote110@gmail.com</a></p>
+                    <p>
+                        <a href="tel:+33744271261">07 44 27 12 61</a><br>
+                        <a href="mailto:lapaillote110@gmail.com">lapaillote110@gmail.com</a>
+                    </p>
                 </address>
 
                 <div class="socials">
                     <a class="social" href="#" aria-label="Facebook">
-                        <!-- FB -->
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Icône Facebook -->
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                     </a>
+
                     <a class="social" href="#" aria-label="Instagram">
-                        <!-- IG -->
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Icône Instagram -->
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
                         </svg>
                     </a>
+
+                    <a class="social" href="https://borneoapp.com/LaPailloteFidesienneSFLL" target="_blank" aria-label="Borneo">
+                        <img src="{{ asset('images/borneoremove.png') }}" alt="Borneo" style="width:22px; height:22px;">
+                    </a>
                 </div>
+
+
+
+                </a>
+                </nav>
             </div>
 
-            {{-- Colonne milieu : ronds décoratifs (comme la maquette) --}}
-            <div class="col col-middle">
-                <span class="dot"></span>
-                <span class="dot hollow"></span>
-            </div>
+            <div class="f-right">
+                <div class="links-col">
+                    <h4>Informations légales</h4>
+                    <ul>
+                        <li><a href="#">Conditions générales de vente</a></li>
+                        <li><a href="#">Conditions générales d’utilisation</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">Politique de confidentialité des données</a></li>
+                    </ul>
+                </div>
 
-            {{-- Colonne droite : liens légaux + navigation courte --}}
-            <div class="col col-right">
-                <ul class="legal">
-                    <li><a href="#">Condition générale de vente</a></li>
-                    <li><a href="#">Condition général d’utilisation</a></li>
-                    <li><a href="#">Mentions légales</a></li>
-                    <li><a href="#">Politique de confidentialité des données</a></li>
-                </ul>
-                <ul class="mini-nav">
-                    <li><a href="#">Le Restaurant</a></li>
-                    <li><a href="#">L’Équipe</a></li>
-                    <li><a href="#">Menus</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+                <div class="links-col">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#">Le Restaurant</a></li>
+                        <li><a href="#">L’Équipe</a></li>
+                        <li><a href="#">Menus</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <p class="copy">© Copyright {{ now()->year }} – La Paillote Fidésienne. Tous droits réservés.</p>
-
         <div class="gold-bar" aria-hidden="true"></div>
     </section>
 </footer>

@@ -10,6 +10,23 @@ header{
     border-bottom: 1px solid #ddd;
 }
 
+/* Header collant en haut */
+.site-header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;          /* au-dessus du contenu */
+    background: #fff;       /* fond plein pour recouvrir le contenu dessous */
+    border-bottom: 1px solid #ddd;  /* ta bordure actuelle */
+    transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+/* Ombre légère quand on a scrollé (classe ajoutée via JS) */
+.site-header.is-scrolled{
+    border-color: transparent;                     /* on “remplace” la bordure par une ombre */
+    box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+
+
 .header-inner{
     max-width: 1300px;
     margin: 0 auto;

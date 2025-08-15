@@ -1,0 +1,88 @@
+:root{
+    --gold:#b9965a;
+    --black:#0d0d0d;
+    --maxw:1180px;
+    --container: min(var(--maxw), 92vw);
+}
+
+/* ========== HERO ========== */
+.home-hero{
+    width: 100%;
+    background: url("../images/hero-salle.png") center/cover no-repeat;
+    min-height: 56vh;
+}
+@media (min-width: 1100px){
+    .home-hero{ min-height: 62vh; }
+}
+
+/* ========== Titre + localisation ========== */
+.home-intro{
+    width: var(--container);
+    margin: 28px auto 8px;
+    text-align: center;
+}
+.intro-title{
+    margin: 0 0 8px 0;
+    font-family: "Cinzel", serif;
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1.35;
+    letter-spacing: .8px;
+    color: var(--gold);
+    text-transform: uppercase;
+}
+.intro-loc{
+    margin: 0;
+    color: #333;
+    letter-spacing: .3px;
+}
+
+/* ========== Citation ========== */
+.home-quote{
+    width: var(--container);
+    margin: 24px auto 48px;
+}
+.quote-card{
+    position: relative;
+    background: #111;
+    border-radius: 14px;
+    padding: clamp(18px, 3.6vw, 32px) clamp(18px, 4vw, 40px);
+    color: #fff;
+    box-shadow: 0 6px 24px rgba(0,0,0,.12);
+    overflow: hidden;
+}
+.quote-card blockquote{
+    margin: 0;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(16px, 2.2vw, 22px);
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* Guillemets décoratifs dorés */
+.quote-card::before,
+.quote-card::after{
+    position: absolute;
+    font-size: clamp(26px, 4vw, 40px);
+    color: var(--gold);
+    opacity: .95;
+}
+.quote-card::before{
+    content: "“";
+    left: 18px; top: 10px;
+}
+.quote-card::after{
+    content: "”";
+    right: 18px; bottom: 6px;
+}
+
+/* petits réglages mobiles */
+@media (max-width: 560px){
+    .home-quote{ margin-bottom: 36px; }
+
+
+    /*retire l'espace blanc*/
+}
+body {
+    display: block;
+    margin: 0px;
+}
