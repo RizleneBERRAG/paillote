@@ -80,6 +80,23 @@
             </div>
         </section>
 
+
+        {{-- ====== AVIS GOOGLE ====== --}}
+        <section class="reviews-wrap">
+            <div class="reviews-head">
+                <h2 class="reviews-title">Nos avis Google parles pour nous !</h2>
+                <br>
+
+                <a class="btn-outline-gold reviews-cta"
+                   href="https://www.google.com/search?sa=X&sca_esv=bbd057e915ef1d8e&rlz=1C1CHZN_frFR983FR983&hl=fr-FR&biw=1920&bih=1065&tbm=lcl&q=avis%20sur%20la%20paillote%20fid%C3%A9sienne&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxK2NLQwMLE0NzE1tzQzNTA3MzY02sDI-IpRIbEss1ihuLRIISdRoSAxMycnvyRVIS0z5fDK4szUvLzURawElQAAN59iO2AAAAA&rldimm=9180497457965076312&ved=0CCEQ5foLahcKEwjwg9ft5o-PAxUAAAAAHQAAAAAQCw#lkt=LocalPoiReviews&arid=ChZDSUhNMG9nS0VJQ0FnTUNJaEtlcEJ3EAE"
+                   target="_blank" rel="noopener">
+                    En savoir plus sur Google !
+                </a>
+            </div>
+
+            <div id="reviews-grid" class="reviews-grid" aria-live="polite"></div>
+        </section>
+
         {{-- tu pourras ajouter d’autres sections ici (info, contact, carte, etc.) --}}
     </main>
 
@@ -90,5 +107,7 @@
 {{-- Scripts --}}
 <script src="{{ asset('js/menu.js') }}" defer></script>
 <script src="{{ asset('js/horaires.js') }}" defer></script>
+<script src="{{ asset('js/reviews.js') }}" defer></script>
+
 </body>
 </html>
