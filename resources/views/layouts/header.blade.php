@@ -29,7 +29,8 @@
         {{-- Droite : téléphone + Horaires --}}
         <div class="header-right">
             <a href="tel:+33744271261" class="phone">07 44 27 12 61</a>
-            <a href="#horaires" class="hours">HORAIRES</a>
+            <a href="{{ route('horaires') }}" class="hours">HORAIRES</a>
+
         </div>
 
     </div>

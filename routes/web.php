@@ -9,3 +9,8 @@ Route::get('/', function () {
 });
 
 Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+
+
+Route::get('/horaires', function () {
+    return view('horaires');
+})->name('horaires');

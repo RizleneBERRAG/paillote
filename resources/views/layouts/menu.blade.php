@@ -18,7 +18,7 @@
                     <li><a href="{{ url('/contact') }}"    data-image="{{ asset('images/menu/contact.jpg') }}">Contact</a></li>
                 </ul>
 
-                <a href="#horaires" class="menu-hours">HORAIRES</a>
+                <a href="{{ route('horaires') }}" class="menu-hours">HORAIRES</a>
 
                 <div class="menu-socials">
                     <a href="#" aria-label="Facebook" class="s s-fb">
