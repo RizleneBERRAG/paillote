@@ -28,6 +28,7 @@ class NewsletterController extends Controller
             'created_at' => now(),
         ]);
 
-        return back()->with('status', 'Merci ! Votre inscription à la newsletter est prise en compte.');
+        return back()->with('status', 'Merci ! Votre inscription à la
+newsletter est prise en compte.');
     }
 }

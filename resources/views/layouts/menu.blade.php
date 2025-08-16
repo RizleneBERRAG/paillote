@@ -1,3 +1,4 @@
+
 {{-- Menu plein écran --}}
 <div id="site-menu" class="menu-overlay" aria-hidden="true">
     <div class="menu-panel">

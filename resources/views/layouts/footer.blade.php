@@ -40,8 +40,8 @@
                 </form>
 
                 <p class="news-text">
-                    LA PAILLOTE FIDÉSIENNE – RESTAURANT DE BURGERS MAISON À SAINTE-FOY-LÈS-LYON.
-                    UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX, ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
+                    LA PAILLOTE FIDÉSIENNE À
+                    SAINTE-FOY-LÈS-LYON. UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX, ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
                 </p>
             </div>
         </div>
