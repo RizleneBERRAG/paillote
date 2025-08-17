@@ -1,5 +1,5 @@
 :root{
-    --gold:#b9965a;
+    --gold: #b9965a;
     --black:#0d0d0d;
     --maxw:1180px;
     --container:min(var(--maxw), 92vw);
@@ -130,7 +130,7 @@
 
 .fade-out{ opacity: 0; transition: opacity .5s ease; }
 :root{
-    --gold: #c62828;
+    --gold: #fd6c00;
     --black:#0d0d0d;
     --container: min(1180px, 92vw);
 }
@@ -343,7 +343,7 @@
     display:flex;
     align-items:center;
     justify-content: space-between;
-    color: rgba(51, 51, 51, 0.16);
+    color: rgba(51, 51, 51, 0.34);
     font-size: 13px;
 }
 

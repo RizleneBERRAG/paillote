@@ -43,31 +43,31 @@
                 <div class="hours-table">
                     <div class="row">
                         <div class="day">LUNDI</div>
-                        <div class="time off">FERMÉ</div>
+                        <div class="time">11H30 – 14H30 / 18H00 – 23H00</div>
                     </div>
                     <div class="row">
                         <div class="day">MARDI</div>
-                        <div class="time">11H30 – 14H / 18H – 22H</div>
+                        <div class="time">11H30 – 14H30 / 18H00 – 23H00</div>
                     </div>
                     <div class="row">
                         <div class="day">MERCREDI</div>
-                        <div class="time">11H30 – 14H / 18H – 22H</div>
+                        <div class="time">11H30 – 14H30 / 18H00 – 23H00</div>
                     </div>
                     <div class="row">
                         <div class="day">JEUDI</div>
-                        <div class="time">11H30 – 14H / 18H – 22H</div>
+                        <div class="time">11H30 – 14H30 / 18H00 – 23H00</div>
                     </div>
                     <div class="row">
                         <div class="day">VENDREDI</div>
-                        <div class="time">11H30 – 14H / 18H – 23H</div>
+                        <div class="time">18H00 – 23H30</div>
                     </div>
                     <div class="row">
                         <div class="day">SAMEDI</div>
-                        <div class="time">18H – 23H</div>
+                        <div class="time off">18H00 – 23H00</div>
                     </div>
                     <div class="row">
                         <div class="day">DIMANCHE</div>
-                        <div class="time off">FERMÉ</div>
+                        <div class="time off">18H00 – 23H00</div>
                     </div>
                 </div>
 
@@ -84,13 +84,13 @@
         {{-- ====== AVIS GOOGLE ====== --}}
         <section class="reviews-wrap">
             <div class="reviews-head">
-                <h2 class="reviews-title">Nos avis Google parles pour nous !</h2>
+                <h2 class="reviews-title">Les témoignages qui font notre fierté</h2>
                 <br>
 
                 <a class="btn-outline-gold reviews-cta"
                    href="https://www.google.com/search?sa=X&sca_esv=bbd057e915ef1d8e&rlz=1C1CHZN_frFR983FR983&hl=fr-FR&biw=1920&bih=1065&tbm=lcl&q=avis%20sur%20la%20paillote%20fid%C3%A9sienne&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxK2NLQwMLE0NzE1tzQzNTA3MzY02sDI-IpRIbEss1ihuLRIISdRoSAxMycnvyRVIS0z5fDK4szUvLzURawElQAAN59iO2AAAAA&rldimm=9180497457965076312&ved=0CCEQ5foLahcKEwjwg9ft5o-PAxUAAAAAHQAAAAAQCw#lkt=LocalPoiReviews&arid=ChZDSUhNMG9nS0VJQ0FnTUNJaEtlcEJ3EAE"
                    target="_blank" rel="noopener">
-                    En savoir plus sur Google !
+                    Découvrir plus d’avis sur Google !
                 </a>
             </div>
 

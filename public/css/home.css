@@ -1,6 +1,6 @@
 :root{
-    --gold:#b9965a;
-    --black:#0d0d0d;
+    --gold: #b9965a;
+    --black: #000000;
     --maxw:1180px;
     --container: min(var(--maxw), 92vw);
 }
@@ -154,7 +154,7 @@
 }
 .btn-outline-gold:hover{
     background: var(--gold);
-    color:#0e0e0e;
+    color: #ffffff;
     transform: translateY(-1px);
 }
 .btn-outline-gold:hover::after{ transform: translateX(2px); }
@@ -260,7 +260,7 @@ body { margin: 0; }
     flex: 0 0 calc((100% - (var(--gap) * (var(--perView) - 1))) / var(--perView));
     border-radius: 18px;
     overflow: hidden;
-    background: #111;
+    background: #000000;
     box-shadow: 0 20px 40px rgba(0,0,0,.18), 0 6px 14px rgba(0,0,0,.08);
 }
 
