@@ -1,20 +1,19 @@
 <footer class="site-footer">
-    {{-- Bandeau Newsletter encadré or, angles arrondis --}}
+    {{-- ===== Newsletter (encadré or, angles arrondis) ===== --}}
     <section class="newsletter-wrap">
         <div class="newsletter">
             <div class="news-photo">
-                {{-- remplace par ta photo réelle --}}
                 <img src="{{ asset('images/newsletter.webp') }}" alt="Plat du restaurant">
             </div>
 
             <div class="news-content">
                 <h3 class="news-title">NEWSLETTER</h3>
 
-                {{-- Message flash (succès / erreur) --}}
+                {{-- Flash messages --}}
                 @if(session('status'))
                     <p class="flash ok">{{ session('status') }}</p>
                 @endif
-                @if ($errors->any())
+                @if($errors->any())
                     <p class="flash ko">{{ $errors->first() }}</p>
                 @endif
 
@@ -32,7 +31,6 @@
                         required
                     />
                     <button class="news-submit" aria-label="Envoyer">
-                        {{-- petite flèche → en SVG pour coller à la maquette --}}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
                             <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
                         </svg>
@@ -40,15 +38,15 @@
                 </form>
 
                 <p class="news-text">
-                    LA PAILLOTE FIDÉSIENNE À
-                    SAINTE-FOY-LÈS-LYON. UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX, ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
+                    LA PAILLOTE FIDÉSIENNE À SAINTE-FOY-LÈS-LYON.
+                    UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX,
+                    ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
                 </p>
             </div>
         </div>
     </section>
-    <br>
 
-    {{-- ===== Bloc principal noir (refonte légère) ===== --}}
+    {{-- ===== Footer principal ===== --}}
     <section class="footer-main">
         <div class="footer-container">
             <div class="f-left">
@@ -65,30 +63,21 @@
 
                 <div class="socials">
                     <a class="social" href="#" aria-label="Facebook">
-                        <!-- Icône Facebook -->
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                     </a>
-
                     <a class="social" href="#" aria-label="Instagram">
-                        <!-- Icône Instagram -->
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                             <line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/>
                         </svg>
                     </a>
-
-                    <a class="social" href="https://borneoapp.com/LaPailloteFidesienneSFLL" target="_blank" aria-label="Borneo">
-                        <img src="{{ asset('images/borneoremove.png') }}" alt="Borneo" style="width:22px; height:22px;">
+                    <a class="social" href="https://borneoapp.com/LaPailloteFidesienneSFLL" target="_blank" rel="noopener" aria-label="Commander sur Bornéo">
+                        <img src="{{ asset('images/borneoremove.png') }}" alt="Borneo" width="22" height="22">
                     </a>
                 </div>
-
-
-
-                </a>
-                </nav>
             </div>
 
             <div class="f-right">
@@ -105,10 +94,10 @@
                 <div class="links-col">
                     <h4>Navigation</h4>
                     <ul>
-                        <li><a href="#">Le Restaurant</a></li>
-                        <a href="{{ route('equipe') }}">L’équipe</a>
-                        <li><a href="#">Menus</a></li>
-                       <li><a href="{{ route('contact') }}" data-image="{{ asset('images/menu/contact.jpg') }}">Contact</a></li>
+                        <li><a href="{{ url('/restaurant') }}">Le Restaurant</a></li>
+                        <li><a href="{{ route('equipe') }}">L’équipe</a></li>
+                        <li><a href="{{ route('restaurant') }}">Menu</a></li>
+                        <li><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
                 </div>
             </div>

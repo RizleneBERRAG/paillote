@@ -1,23 +1,16 @@
+// public/js/equipe.js
 (() => {
     document.addEventListener('DOMContentLoaded', () => {
-        /* =========================
-           1) VOILE D’INTRO
-           ========================= */
-        const veil     = document.querySelector('.team-veil');
-        const veilBtn  = document.getElementById('veilEnter');
-        const teamPage = document.getElementById('team-page');
-
-        // écouteurs "déverrouillage"
-        const unlockEvents = ['wheel', 'touchstart', 'scroll'];
-        const rmUnlock = () => unlockEvents.forEach(ev => window.removeEventListener(ev, closeVeil, optPassiveOnce));
-
-        // options d’écoute “passive”
-        const optPassive     = { passive: true };
-        const optPassiveOnce = { passive: true, once: true };
+        /* =========================================================
+           1) VOILE D’INTRO (cohérent avec le Blade)
+           ========================================================= */
+        const veil     = document.getElementById('teamVeil');   // <div id="teamVeil" class="team-veil">
+        const veilBtn  = document.getElementById('veilEnter');  // <button id="veilEnter">
+        const teamPage = document.getElementById('team-page');  // <div id="team-page">
 
         let veilClosed = false;
 
-        // Si le voile existe, bloque le scroll
+        // Bloque le scroll tant que le voile est visible
         if (veil) {
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
@@ -29,15 +22,14 @@
 
             veil.classList.add('is-off');
 
-            // Débloque le scroll après la transition + nettoyage
+            // Débloque le scroll après la transition
             setTimeout(() => {
                 if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
                 document.documentElement.style.overflow = '';
                 document.body.style.overflow = '';
-                rmUnlock();
             }, 460);
 
-            // Petite apparition douce du contenu (si animations permises)
+            // Apparition douce du contenu
             const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (teamPage) {
                 if (reduce) {
@@ -46,33 +38,38 @@
                 } else {
                     teamPage.animate(
                         [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
-                        { duration: 4200, easing: 'ease-out' }
+                        { duration: 320, easing: 'ease-out' }
                     );
                 }
             }
         }
 
+        // Bouton “Entrer”
         if (veilBtn) {
-            veilBtn.addEventListener('click', (e) => { e.preventDefault(); closeVeil(); });
+            veilBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeVeil();
+            });
         }
+
+        // Échap
         if (veil) {
-            // Clic partout (sauf sur le bouton) => ferme aussi
-            veil.addEventListener('click', (e) => {
-                if (!e.target.closest('#veilEnter')) closeVeil();
-            }, optPassive);
-            // Échap
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeVeil();
             });
-            // Fallback : premier scroll/touch/wheel => ferme
-            unlockEvents.forEach(ev => window.addEventListener(ev, closeVeil, optPassiveOnce));
         }
 
-        /* =========================
-           2) REVEAL-ON-SCROLL
-           ========================= */
+        // (Important) On NE ferme PAS sur scroll/clic auto pour éviter la fermeture involontaire
+        // Si tu veux réactiver la fermeture par clic fond, décommente :
+        // veil.addEventListener('click', (e) => {
+        //   if (!e.target.closest('#veilEnter')) closeVeil();
+        // }, { passive: true });
+
+        /* =========================================================
+           2) REVEAL-ON-SCROLL (scopé à #team-page)
+           ========================================================= */
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const revealEls = document.querySelectorAll('#team-page .reveal'); // << scoping
+        const revealEls = document.querySelectorAll('#team-page .reveal');
         const doRevealAll = () => revealEls.forEach(el => el.classList.add('in'));
 
         if (revealEls.length) {
@@ -91,18 +88,18 @@
             }
         }
 
-        /* =========================
-           3) MARQUEE — duplication
-           ========================= */
+        /* =========================================================
+           3) MARQUEE — duplication (strip photos)
+           ========================================================= */
         document.querySelectorAll('.strip-inner').forEach((row) => {
             if (row.dataset.doubled) return;
-            row.innerHTML = row.innerHTML + row.innerHTML;
+            row.innerHTML = row.innerHTML + row.innerHTML; // une duplication suffit
             row.dataset.doubled = '1';
         });
 
-        /* =========================
+        /* =========================================================
            4) COMPTEURS (stats)
-           ========================= */
+           ========================================================= */
         const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
         const animateNumber = (el, to, suffix, duration = 1000) => {
             const from = 0;
@@ -130,6 +127,7 @@
                     animateNumber(el, target, suffix, 1100);
                 });
             };
+
             if (reduce || !('IntersectionObserver' in window)) {
                 runCounters();
             } else {
@@ -137,7 +135,7 @@
                     ents.forEach((e) => {
                         if (e.isIntersecting) {
                             runCounters();
-                            io2.disconnect();
+                            io2.disconnect(); // une seule fois
                         }
                     });
                 }, { threshold: 0.25 });
@@ -145,12 +143,14 @@
             }
         }
 
-        /* =========================
+        /* =========================================================
            5) Hover “lift” : réduire le jitter sur mobile
-           ========================= */
+           ========================================================= */
         const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         if (isTouch) {
-            document.querySelectorAll('.lift').forEach(el => el.style.transition = 'box-shadow .18s ease');
+            document.querySelectorAll('.lift').forEach(el => {
+                el.style.transition = 'box-shadow .18s ease';
+            });
         }
     });
 })();

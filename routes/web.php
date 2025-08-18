@@ -22,6 +22,8 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-Route::get('/equipe', function () {
-    return view('equipe');
-})->name('equipe');
+Route::get('/equipe', function () {return view('equipe');})->name('equipe');
+
+Route::get('/equipe', function () {return view('equipe');})->name('equipe');
+
+Route::get('/restaurant', function () {return view('restaurant');})->name('restaurant');

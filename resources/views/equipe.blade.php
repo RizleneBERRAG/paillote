@@ -37,11 +37,6 @@
                 <div class="shot"><img src="{{ asset('images/equipe/prepa2.webp') }}" alt="Préparation des buns" loading="lazy"></div>
                 <div class="shot"><img src="{{ asset('images/equipe/prepa3.webp') }}" alt="Dressage soigné" loading="lazy"></div>
                 <div class="shot"><img src="{{ asset('images/equipe/prepa4.webp') }}" alt="Sauces maison" loading="lazy"></div>
-                {{-- Si tu utilises la duplication automatique en JS, tu peux supprimer la répétition ci-dessous --}}
-                <div class="shot"><img src="{{ asset('images/equipe/prepa1.webp') }}" alt="" loading="lazy"></div>
-                <div class="shot"><img src="{{ asset('images/equipe/prepa2.webp') }}" alt="" loading="lazy"></div>
-                <div class="shot"><img src="{{ asset('images/equipe/prepa3.webp') }}" alt="" loading="lazy"></div>
-                <div class="shot"><img src="{{ asset('images/equipe/prepa4.webp') }}" alt="" loading="lazy"></div>
             </div>
         </section>
 
