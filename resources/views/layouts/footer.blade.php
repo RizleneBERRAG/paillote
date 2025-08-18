@@ -106,7 +106,7 @@
                     <h4>Navigation</h4>
                     <ul>
                         <li><a href="#">Le Restaurant</a></li>
-                        <li><a href="#">L’Équipe</a></li>
+                        <a href="{{ route('equipe') }}">L’équipe</a>
                         <li><a href="#">Menus</a></li>
                        <li><a href="{{ route('contact') }}" data-image="{{ asset('images/menu/contact.jpg') }}">Contact</a></li>
                     </ul>

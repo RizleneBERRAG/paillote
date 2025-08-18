@@ -20,7 +20,8 @@
 }
 .contact-hero-inner{
     position:relative; z-index:2;
-    display:grid; place-items:center;
+    display:grid;
+    place-items:center;
     text-align:center; color:#fff;
     padding: 54px 16px;
     min-height: inherit;
@@ -199,7 +200,10 @@ textarea:focus{
 
 .curtain-center{
     position: relative; z-index: 2;
-    display: grid; place-items: center; text-align: center; color:#fff;
+    display: grid; align-content: center; justify-content: normal; align-items: center; justify-items: center;
+    place-items: center;
+    text-align: center;
+    color:#fff;
     height: 100%;
     padding: 16px;
 }

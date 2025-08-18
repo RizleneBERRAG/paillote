@@ -31,18 +31,32 @@ header{
     max-width: 1300px;
     margin: 0 auto;
     padding: 12px 20px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;                       /* au lieu de flex */
+    grid-template-columns: 1fr auto 1fr; /* gauche / logo / droite */
     align-items: center;
     column-gap: 28px;
 }
 
-.header-left,
+.header-left{
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    justify-content: flex-start;
+}
+
 .header-right{
     display: flex;
     align-items: center;
     gap: 26px;
+    justify-content: flex-end;
 }
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* --- Bouton burger --- */
 .menu-toggle{
