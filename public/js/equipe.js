@@ -1,66 +1,84 @@
-// public/js/equipe.js
 (() => {
     document.addEventListener('DOMContentLoaded', () => {
-        /* =========================================================
-           1) VOILE D’INTRO (optionnel)
-           ========================================================= */
-        const veil = document.querySelector('.team-veil');
-        const veilBtn = document.getElementById('veilEnter');
+        /* =========================
+           1) VOILE D’INTRO
+           ========================= */
+        const veil     = document.querySelector('.team-veil');
+        const veilBtn  = document.getElementById('veilEnter');
         const teamPage = document.getElementById('team-page');
 
-        // Si le voile existe, on bloque le scroll jusqu’à fermeture
+        // écouteurs "déverrouillage"
+        const unlockEvents = ['wheel', 'touchstart', 'scroll'];
+        const rmUnlock = () => unlockEvents.forEach(ev => window.removeEventListener(ev, closeVeil, optPassiveOnce));
+
+        // options d’écoute “passive”
+        const optPassive     = { passive: true };
+        const optPassiveOnce = { passive: true, once: true };
+
+        let veilClosed = false;
+
+        // Si le voile existe, bloque le scroll
         if (veil) {
             document.documentElement.style.overflow = 'hidden';
             document.body.style.overflow = 'hidden';
         }
 
-        const closeVeil = () => {
-            if (!veil || veil.classList.contains('is-off')) return;
+        function closeVeil() {
+            if (!veil || veilClosed) return;
+            veilClosed = true;
+
             veil.classList.add('is-off');
-            // débloque le scroll après la transition
+
+            // Débloque le scroll après la transition + nettoyage
             setTimeout(() => {
                 if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
                 document.documentElement.style.overflow = '';
                 document.body.style.overflow = '';
+                rmUnlock();
             }, 460);
-            // petite apparition douce du contenu
+
+            // Petite apparition douce du contenu (si animations permises)
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (teamPage) {
-                teamPage.animate(
-                    [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
-                    { duration: 320, easing: 'ease-out' }
-                );
+                if (reduce) {
+                    teamPage.style.opacity = '1';
+                    teamPage.style.transform = 'none';
+                } else {
+                    teamPage.animate(
+                        [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
+                        { duration: 4200, easing: 'ease-out' }
+                    );
+                }
             }
-        };
+        }
 
         if (veilBtn) {
-            veilBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                closeVeil();
-            });
+            veilBtn.addEventListener('click', (e) => { e.preventDefault(); closeVeil(); });
         }
         if (veil) {
-            // clic n’importe où (hors bouton) => ferme aussi
+            // Clic partout (sauf sur le bouton) => ferme aussi
             veil.addEventListener('click', (e) => {
                 if (!e.target.closest('#veilEnter')) closeVeil();
-            });
-            // touche Échap
+            }, optPassive);
+            // Échap
             window.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeVeil();
-            }, { passive: true });
-            // petit fallback : si l’utilisateur scrolle/roue, on ferme
-            const unlockEvents = ['wheel', 'touchstart', 'scroll'];
-            unlockEvents.forEach(ev => window.addEventListener(ev, closeVeil, { passive: true, once: true }));
+            });
+            // Fallback : premier scroll/touch/wheel => ferme
+            unlockEvents.forEach(ev => window.addEventListener(ev, closeVeil, optPassiveOnce));
         }
 
-        /* =========================================================
+        /* =========================
            2) REVEAL-ON-SCROLL
-           Ajoute la classe .in aux éléments .reveal quand ils entrent en vue
-           ========================================================= */
-        const revealEls = document.querySelectorAll('.reveal');
+           ========================= */
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const revealEls = document.querySelectorAll('#team-page .reveal'); // << scoping
         const doRevealAll = () => revealEls.forEach(el => el.classList.add('in'));
 
         if (revealEls.length) {
-            if ('IntersectionObserver' in window) {
+            if (reduce || !('IntersectionObserver' in window)) {
+                doRevealAll();
+            } else {
                 const io = new IntersectionObserver((entries) => {
                     entries.forEach((entry) => {
                         if (entry.isIntersecting) {
@@ -69,27 +87,22 @@
                         }
                     });
                 }, { threshold: 0.18 });
-                revealEls.forEach((el) => io.observe(el));
-            } else {
-                doRevealAll();
+                revealEls.forEach(el => io.observe(el));
             }
         }
 
-        /* =========================================================
-           3) MARQUEE : DUPLICATION AUTOMATIQUE
-           Duplique le contenu de .strip-inner pour une boucle fluide
-           ========================================================= */
+        /* =========================
+           3) MARQUEE — duplication
+           ========================= */
         document.querySelectorAll('.strip-inner').forEach((row) => {
             if (row.dataset.doubled) return;
-            // duplique 1x tout le contenu (suffisant pour l’anim CSS -50%)
             row.innerHTML = row.innerHTML + row.innerHTML;
             row.dataset.doubled = '1';
         });
 
-        /* =========================================================
-           4) COMPTEUR (facultatif) pour .stat b
-           Si le texte contient un nombre (ex: "450+" / "100%"), on anime.
-           ========================================================= */
+        /* =========================
+           4) COMPTEURS (stats)
+           ========================= */
         const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
         const animateNumber = (el, to, suffix, duration = 1000) => {
             const from = 0;
@@ -117,26 +130,24 @@
                     animateNumber(el, target, suffix, 1100);
                 });
             };
-
-            if ('IntersectionObserver' in window) {
+            if (reduce || !('IntersectionObserver' in window)) {
+                runCounters();
+            } else {
                 const io2 = new IntersectionObserver((ents) => {
                     ents.forEach((e) => {
                         if (e.isIntersecting) {
                             runCounters();
-                            io2.disconnect(); // une seule fois
+                            io2.disconnect();
                         }
                     });
                 }, { threshold: 0.25 });
                 io2.observe(statBoxes[0]);
-            } else {
-                runCounters();
             }
         }
 
-        /* =========================================================
-           5) HOVER LIFT fin : réduire le “jitter” sur mobile
-           (désactive la translation au touch)
-           ========================================================= */
+        /* =========================
+           5) Hover “lift” : réduire le jitter sur mobile
+           ========================= */
         const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         if (isTouch) {
             document.querySelectorAll('.lift').forEach(el => el.style.transition = 'box-shadow .18s ease');

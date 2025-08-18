@@ -1,6 +1,5 @@
-// public/js/contact-intro.js
 document.addEventListener("DOMContentLoaded", () => {
-    // === EmailJS : RENSEIGNE TES IDENTIFIANTS ===
+    // === EmailJS === //
     const EMAILJS_SERVICE_ID  = "service_j8gsazd";
     const EMAILJS_TEMPLATE_ID = "template_mi664sv";
     const EMAILJS_PUBLIC_KEY  = "0inxyCI23tIIDpDhL";
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // IMPORTANT : ces clés doivent correspondre aux variables de ton template EmailJS
         const params = {
             name:name,
             email:email,
