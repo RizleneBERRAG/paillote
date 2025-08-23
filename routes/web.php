@@ -3,27 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MenuController;
 
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::view('/', 'home')->name('home');
+Route::view('/horaires', 'horaires')->name('horaires');
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/equipe', 'equipe')->name('equipe');
+Route::view('/restaurant', 'restaurant')->name('restaurant');
 
 Route::post('/newsletter', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-
-
-Route::get('/horaires', function () {
-    return view('horaires');
-})->name('horaires');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
-Route::get('/equipe', function () {return view('equipe');})->name('equipe');
-
-Route::get('/equipe', function () {return view('equipe');})->name('equipe');
-
-Route::get('/restaurant', function () {return view('restaurant');})->name('restaurant');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');

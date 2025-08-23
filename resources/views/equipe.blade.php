@@ -139,9 +139,7 @@
                 </article>
             </div>
         </section>
-
     </main>
-
     @include('layouts.footer')
 </div>
 

@@ -27,8 +27,8 @@
                     <li><a href="{{ url('/equipe') }}"
                            data-image="{{ asset('images/menu/equipe.jpg') }}">L’équipe</a></li>
 
-                    <li><a href="{{ url('/menus') }}"
-                           data-image="{{ asset('images/menu/menus.jpg') }}">Menus</a></li>
+                    <li><a href="{{ route('menu') }}"
+                           data-image="{{ asset('images/menu/menu.jpg') }}">Menus</a></li>
 
                     <li><a href="{{ route('contact') }}"
                            data-image="{{ asset('images/menu/contact.jpg') }}">Contact</a></li>

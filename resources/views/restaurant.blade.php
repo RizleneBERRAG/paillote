@@ -17,7 +17,7 @@
 </head>
 <body>
 
-{{-- Header + Menu (toujours visibles) --}}
+{{-- Header + Menu --}}
 @include('layouts.header')
 @include('layouts.menu')
 
@@ -27,32 +27,28 @@
     <section class="rest-hero" aria-label="Le Restaurant">
         <div class="rest-hero-inner">
             <div class="hero-band">
-                <i class="rule"></i>
+                <i class="rule" aria-hidden="true"></i>
                 <h1 class="hero-title">Le Restaurant</h1>
-                <i class="rule"></i>
+                <i class="rule" aria-hidden="true"></i>
             </div>
             <p class="hero-sub">Cuisine maison, produits frais & ambiance chaleureuse</p>
 
-            {{-- Filtres sous le titre (pills) --}}
+            {{-- Filtres (pills) --}}
             <nav class="gallery-filters" aria-label="Filtres de galerie">
-                <button class="gf-btn is-active" data-filter="all">Tout</button>
-                <button class="gf-btn" data-filter="cuisine">Cuisine</button>
-                <button class="gf-btn" data-filter="menu">Menu</button>
-                <button class="gf-btn" data-filter="préparations">Préparations</button>
+                <button class="gf-btn is-active" data-filter="all" type="button">Tout</button>
+                <button class="gf-btn" data-filter="cuisine" type="button">Cuisine</button>
+                <button class="gf-btn" data-filter="menu" type="button">Menu</button>
+                <button class="gf-btn" data-filter="préparations" type="button">Préparations</button>
             </nav>
         </div>
     </section>
 
     {{-- ===== Titre de section ===== --}}
-    <header class="section-head">
-        <br>
+    <header class="section-head" aria-labelledby="galerie-title">
         <span class="section-kicker">Notre univers</span>
-        <h3 class="section-title">Galerie</h3>
+        <h2 id="galerie-title" class="section-title">Galerie</h2>
         <br>
         <br>
-        <br>
-
-
     </header>
 
     {{-- ===== Galerie ===== --}}
@@ -102,7 +98,7 @@
                         <img
                             src="{{ $src }}"
                             data-full="{{ $src }}"
-                            alt="{{ $categorie }}"
+                            alt="{{ ucfirst($categorie) }} — {{ pathinfo($file, PATHINFO_FILENAME) }}"
                             loading="lazy"
                             width="800" height="600"
                         >
@@ -114,7 +110,7 @@
 </main>
 
 {{-- ===== Lightbox ===== --}}
-<div id="lightbox" class="lightbox" aria-hidden="true">
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Agrandissement de l’image">
     <button class="lb-close" aria-label="Fermer (Échap)">&times;</button>
     <img id="lightboxImg" src="" alt="">
 </div>
@@ -127,3 +123,4 @@
 <script src="{{ asset('js/restaurant.js') }}" defer></script>
 </body>
 </html>
+
