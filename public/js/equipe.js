@@ -38,7 +38,7 @@
                 } else {
                     teamPage.animate(
                         [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
-                        { duration: 4320, easing: 'ease-out' }
+                        { duration: 1020, easing: 'ease-out' }
                     );
                 }
             }
