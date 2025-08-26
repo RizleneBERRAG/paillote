@@ -90,11 +90,33 @@
                 <details class="links-col footer-accordion">
                     <summary>Informations Légales</summary>
                     <ul>
-                        <li><a href="#">Conditions générales de vente</a></li>
-                        <li><a href="#">Conditions générales d’utilisation</a></li>
-                        <li><a href="#">Mentions légales</a></li>
-                        <li><a href="#">Politique de confidentialité des données</a></li>
+                        <li>
+                            <a href="{{ asset('docs/cgv.pdf') }}"
+                               download="LPF-CGV.pdf" rel="noopener">
+                                Conditions générales de vente (PDF)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ asset('docs/cgu.pdf') }}"
+                               download="LPF-CGU.pdf" rel="noopener">
+                                Conditions générales d’utilisation (PDF)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ asset('docs/mentions-legales.pdf') }}"
+                               download="LPF-Mentions-Legales.pdf" rel="noopener">
+                                Mentions légales (PDF)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ asset('docs/politique-confidentialite.pdf') }}"
+                               download="LPF-Politique-Confidentialite.pdf" rel="noopener">
+                                Politique de confidentialité (PDF)
+                            </a>
+                        </li>
                     </ul>
+
+
                 </details>
 
                 <details class="links-col footer-accordion">
