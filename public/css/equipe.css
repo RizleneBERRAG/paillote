@@ -22,7 +22,6 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
 .team-veil{
     position:fixed; inset:0; z-index:3000; /* < menu-overlay */
     display:grid; place-items:center;
-    /* 🔥 Fond beaucoup plus sombre, léger dégradé */
     background: linear-gradient(180deg, #050505 0%, #0b0b0b 100%);
     color:#fff;
     transition: opacity .45s ease, visibility .45s ease;
@@ -32,12 +31,12 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
 .team-veil h1{
     margin:0 0 14px; font-family:"Cinzel",serif;
     font-size: clamp(28px,5vw,56px); letter-spacing:.6px;
-    text-shadow: 0 6px 18px rgba(0,0,0,.45); /* texte lisible */
+    text-shadow: 0 6px 18px rgba(0,0,0,.45);
 }
 .team-veil .veil-cta{
     border:2px solid var(--gold); background:transparent; color:#fff;
     padding:12px 22px; border-radius:12px; font-weight:800;
-    letter-spacing:.4px; cursor:pointer;
+    letter-spacing:.4px; cursor:pointer; min-height:44px;
     transition:background .2s ease,color .2s ease,transform .06s ease,box-shadow .2s ease;
 }
 .team-veil .veil-cta:hover{
@@ -93,17 +92,14 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
 /* =========================================================
    SPOTLIGHT (texte + photo) — image calée sur la hauteur du texte
    ========================================================= */
-/* Section Spotlight */
 .spotlight{
     width: var(--container);
     margin: clamp(36px,7vw,70px) auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(20px,3vw,34px);
-    align-items: center;   /* 🔥 aligne les deux au milieu */
+    align-items: center;
 }
-
-/* Bloc texte */
 .card-glass{
     background: rgba(15,15,15,.92); color:#fff;
     border-radius:22px; overflow:hidden;
@@ -111,7 +107,7 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
     box-shadow: 0 16px 34px rgba(0,0,0,.14);
     display:flex; flex-direction:column;
     justify-content:center;
-    max-height: 420px;     /* 🔥 limite la hauteur */
+    max-height: 420px;
 }
 .card-glass h3{
     display:flex; align-items:center; gap:14px;
@@ -122,12 +118,12 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
 .card-glass h3 i{ flex:1; height:2px; background:var(--gold); opacity:.9; }
 .card-glass p{ color:#e8e8e8; line-height:1.7; margin:.5rem 0 0 }
 
-/* Image */
 .spot-photo{
     position:relative;
     border-radius:22px; overflow:hidden; background:#000;
     box-shadow: 0 16px 34px rgba(0,0,0,.14);
-    max-height: 420px;   /* 🔥 même limite que le texte */
+    max-height: 420px;
+    aspect-ratio: 4 / 3;
 }
 .spot-photo img{
     width:100%; height:100%; object-fit:cover;
@@ -154,7 +150,7 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
 .stat span{ display:block; margin-top:4px; color:#d9d9d9 }
 
 /* =========================================================
-   ÉQUIPE — cartes membres (si tu les gardes)
+   ÉQUIPE — cartes membres
    ========================================================= */
 .team-wrap{ width:var(--container); margin: 0 auto clamp(42px,7vw,90px) }
 .team-grid{
@@ -165,6 +161,7 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
     background:#fff; border-radius:18px; overflow:hidden;
     box-shadow: 0 18px 40px rgba(0,0,0,.1), 0 6px 14px rgba(0,0,0,.06);
     transition: transform .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; /* hauteur harmonisée */
 }
 .member:hover{ transform: translateY(-4px); box-shadow: 0 26px 64px rgba(0,0,0,.16) }
 .member .m-photo{ position:relative; aspect-ratio: 4/3; overflow:hidden; background:#000 }
@@ -173,10 +170,10 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
     transition: transform .45s cubic-bezier(.22,.61,.36,1), filter .35s ease;
 }
 .member:hover .m-photo img{ transform:scale(1.06); filter:saturate(1.06) }
-.member .m-body{ padding:14px 14px 16px }
+.member .m-body{ padding:14px 14px 16px; display:flex; flex-direction:column; gap:6px; flex:1; }
 .member .m-name{ margin:0; font-weight:800; letter-spacing:.3px }
-.member .m-role{ margin:4px 0 8px; color:#444; font-size:14px }
-.member .m-bio{ margin:0; color:#555; line-height:1.7; font-size:15px }
+.member .m-role{ margin:0; color:#444; font-size:14px }
+.member .m-bio{ margin:6px 0 0; color:#555; line-height:1.7; font-size:15px }
 
 /* =========================================================
    Talents / Savoir-faire (cards)
@@ -254,10 +251,13 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
     .spotlight{ grid-template-columns:1fr; }
     .stats{ grid-template-columns:1fr 1fr; }
     .team-grid{ grid-template-columns:1fr 1fr; }
+    .spot-photo{ max-height: 420px; aspect-ratio: 16 / 10; }
+    .card-glass{ max-height: none; }
 }
 @media (max-width: 640px){
     .stats{ grid-template-columns:1fr }
     .team-grid{ grid-template-columns:1fr }
+    .strip{ padding:14px 0 }
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -265,35 +265,25 @@ body{ margin:0; color:var(--ink); font-family:Inter,system-ui,-apple-system,"Seg
     .team-veil{ display:none !important }
     .team-hero.v2 .rule{ animation: none !important }
 }
+
 /* 1) Le menu doit toujours passer au-dessus de tout le reste */
-.menu-overlay{
-    z-index: 5000 !important;
-}
+.menu-overlay{ z-index: 5000 !important; }
 
-/* 2) Si le rideau existe encore dans le DOM, force-le sous le menu
-      (ou mieux, cache-le complètement si non utilisé) */
-.team-veil{
-    z-index: 3000;           /* < menu-overlay */
-}
+/* 2) Le rideau sous le menu */
+.team-veil{ z-index: 3000; } /* < menu-overlay */
 .team-veil.is-off{
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    display: none;           /* sécurité */
+    opacity: 0; visibility: hidden; pointer-events: none; display: none;
 }
 
-/* 3) Scoper la classe .reveal pour ne pas affecter le menu */
+/* 3) Scoper .reveal pour la page équipe uniquement */
 #team-page .reveal{
     opacity: 0;
     transform: translateY(18px);
     transition: opacity .6s ease, transform .6s ease;
 }
-#team-page .reveal.in{
-    opacity: 1;
-    transform: none;
-}
+#team-page .reveal.in{ opacity: 1; transform: none; }
 
-/* Et par sécurité : si jamais .reveal apparaît dans le menu, on neutralise */
+/* Neutraliser toute reveal dans le menu si jamais présente */
 .menu-overlay .reveal{
     opacity: 1 !important;
     transform: none !important;

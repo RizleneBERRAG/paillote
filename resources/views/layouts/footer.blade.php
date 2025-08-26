@@ -1,54 +1,59 @@
 <footer class="site-footer">
-    {{-- ===== Newsletter (encadré or, angles arrondis) ===== --}}
-    <section class="newsletter-wrap">
-        <div class="newsletter">
-            <div class="news-photo">
-                <img src="{{ asset('images/newsletter.webp') }}" alt="Plat du restaurant">
+
+    {{-- ===== Bande dorée (si newsletter masquée) ===== --}}
+    @if(!empty($hideNewsletter))
+        <section class="glb-wrap" aria-hidden="false">
+            <div class="glb-band">
+                <span class="glb-text">{{ $goldBandText ?? 'LA PAILLOTE FIDÉSIENNE' }}</span>
             </div>
+        </section>
+        <br>
+    @else
+        {{-- ===== Newsletter (par défaut) ===== --}}
+        <section class="newsletter-wrap">
+            <div class="newsletter">
+                <div class="news-photo">
+                    <img src="{{ asset('images/newsletter.webp') }}" alt="Plat du restaurant">
+                </div>
 
-            <div class="news-content">
-                <h3 class="news-title">NEWSLETTER</h3>
+                <div class="news-content">
+                    <h3 class="news-title">NEWSLETTER</h3>
 
-                {{-- Flash messages --}}
-                @if(session('status'))
-                    <p class="flash ok">{{ session('status') }}</p>
-                @endif
-                @if($errors->any())
-                    <p class="flash ko">{{ $errors->first() }}</p>
-                @endif
+                    @if(session('status'))
+                        <p class="flash ok">{{ session('status') }}</p>
+                    @endif
+                    @if($errors->any())
+                        <p class="flash ko">{{ $errors->first() }}</p>
+                    @endif
 
-                <form class="news-form" action="{{ route('newsletter.subscribe') }}" method="POST" novalidate>
-                    @csrf
-                    <label class="visually-hidden" for="newsletter-email">E-mail</label>
-                    <input
-                        id="newsletter-email"
-                        name="email"
-                        type="email"
-                        inputmode="email"
-                        autocomplete="email"
-                        placeholder="E-MAIL"
-                        value="{{ old('email') }}"
-                        required
-                    />
-                    <button class="news-submit" aria-label="Envoyer">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                            <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
-                        </svg>
-                    </button>
-                </form>
+                    <form class="news-form" action="{{ route('newsletter.subscribe') }}" method="POST" novalidate>
+                        @csrf
+                        <label class="visually-hidden" for="newsletter-email">E-mail</label>
+                        <input id="newsletter-email" name="email" type="email" inputmode="email"
+                               autocomplete="email" placeholder="E-MAIL" value="{{ old('email') }}" required />
+                        <button class="news-submit" aria-label="Envoyer">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                 width="18" height="18" fill="currentColor" aria-hidden="true">
+                                <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+                            </svg>
+                        </button>
+                    </form>
 
-                <p class="news-text">
-                    LA PAILLOTE FIDÉSIENNE À SAINTE-FOY-LÈS-LYON.
-                    UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX,
-                    ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
-                </p>
+                    <p class="news-text">
+                        LA PAILLOTE FIDÉSIENNE À SAINTE-FOY-LÈS-LYON.
+                        UNE CUISINE GÉNÉREUSE, UN ACCUEIL CHALEUREUX,
+                        ET UN SAVOIR-FAIRE LOCAL AU SERVICE DE VOS PAPILLES.
+                    </p>
+                </div>
             </div>
-        </div>
-    </section>
-    <br>
+        </section>
+        <br>
+    @endif
+
     {{-- ===== Footer principal ===== --}}
     <section class="footer-main">
         <div class="footer-container">
+            {{-- Colonne gauche --}}
             <div class="f-left">
                 <img src="{{ asset('images/logo-round.png') }}" alt="La Paillote Fidésienne" class="brand-logo">
                 <br>
@@ -80,30 +85,61 @@
                 </div>
             </div>
 
+            {{-- Colonne droite avec accordéons --}}
             <div class="f-right">
-                <div class="links-col">
-                    <h4>Informations légales</h4>
+                <details class="links-col footer-accordion">
+                    <summary>Informations Légales</summary>
                     <ul>
                         <li><a href="#">Conditions générales de vente</a></li>
                         <li><a href="#">Conditions générales d’utilisation</a></li>
                         <li><a href="#">Mentions légales</a></li>
                         <li><a href="#">Politique de confidentialité des données</a></li>
                     </ul>
-                </div>
+                </details>
 
-                <div class="links-col">
-                    <h4>Navigation</h4>
+                <details class="links-col footer-accordion">
+                    <summary>Navigation</summary>
                     <ul>
                         <li><a href="{{ url('/restaurant') }}">Le Restaurant</a></li>
                         <li><a href="{{ route('equipe') }}">L’équipe</a></li>
                         <li><a href="{{ route('restaurant') }}">Menu</a></li>
                         <li><a href="{{ route('contact') }}">Contact</a></li>
                     </ul>
-                </div>
+                </details>
             </div>
+
         </div>
 
         <p class="copy">© Copyright {{ now()->year }} – La Paillote Fidésienne. Tous droits réservés.</p>
         <div class="gold-bar" aria-hidden="true"></div>
     </section>
+
 </footer>
+<script>
+    document.addEventListener('click', (e) => {
+        if (!window.matchMedia('(max-width: 768px)').matches) return;
+        const sum = e.target.closest('.footer-accordion > summary');
+        if (!sum) return;
+        const current = sum.parentNode;
+        if (current.open) return;
+        document.querySelectorAll('.footer-accordion[open]').forEach(d => {
+            if (d !== current) d.removeAttribute('open');
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const accordions = document.querySelectorAll(".footer-accordion");
+
+        const toggleAccordions = () => {
+            if (window.innerWidth >= 769) {
+                accordions.forEach(d => d.setAttribute("open", "true"));
+            } else {
+                accordions.forEach(d => d.removeAttribute("open"));
+            }
+        };
+
+        toggleAccordions(); // au chargement
+        window.addEventListener("resize", toggleAccordions);
+    });
+
+</script>

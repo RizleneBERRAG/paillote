@@ -1,175 +1,115 @@
 :root{
-    --h: 38px;          /* hauteur des boutons */
-    --br: 2px;          /* bordure uniforme */
-    --logoSize: 92px;   /* taille logo central */
+    --h: 38px;             /* hauteur des boutons desktop */
+    --br: 2px;             /* bordures */
+    --logoSize: 92px;      /* logo desktop */
+    --gold: #b9965a;       /* or luxe */
 }
 
-header{
-    width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-}
+header{ width:100%; background:#fff; border-bottom:1px solid #ddd; }
 
-/* Header collant en haut */
+/* Header collant */
 .site-header{
-    position: sticky;
-    top: 0;
-    z-index: 1000;          /* au-dessus du contenu */
-    background: #fff;       /* fond plein pour recouvrir le contenu dessous */
-    border-bottom: 1px solid #ddd;  /* ta bordure actuelle */
+    position:sticky; top:0; z-index:1000;
+    background:#fff; border-bottom:1px solid #ddd;
     transition: box-shadow .2s ease, border-color .2s ease;
 }
-
-/* Ombre légère quand on a scrollé (classe ajoutée via JS) */
-.site-header.is-scrolled{
-    border-color: transparent;                     /* on “remplace” la bordure par une ombre */
-    box-shadow: 0 6px 14px rgba(0,0,0,.08);
-}
-
+.site-header.is-scrolled{ border-color:transparent; box-shadow:0 6px 14px rgba(0,0,0,.08); }
 
 .header-inner{
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 12px 20px;
-    display: grid;                       /* au lieu de flex */
-    grid-template-columns: 1fr auto 1fr; /* gauche / logo / droite */
-    align-items: center;
-    column-gap: 28px;
+    max-width:1300px; margin:0 auto; padding:12px 20px;
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; column-gap:28px;
 }
+.header-left{ display:flex; align-items:center; gap:26px; justify-content:flex-start; }
+.header-center{ display:flex; align-items:center; justify-content:center; }
+.header-right{ display:flex; align-items:center; gap:20px; justify-content:flex-end; }
 
-.header-left{
-    display: flex;
-    align-items: center;
-    gap: 26px;
-    justify-content: flex-start;
-}
-
-.header-right{
-    display: flex;
-    align-items: center;
-    gap: 26px;
-    justify-content: flex-end;
-}
-
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-
-/* --- Bouton burger --- */
+/* Burger */
 .menu-toggle{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 22px;
-    height: 16px;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+    display:flex; flex-direction:column; justify-content:space-between;
+    width:22px; height:16px; background:none; border:0; padding:0; cursor:pointer;
 }
-.menu-toggle span{
-    display: block;
-    height: 2px;
-    width: 100%;
-    background: #000;
-    border-radius: 1px;
-    transition: all 0.3s ease;
-}
+.menu-toggle span{ display:block; height:2px; width:100%; background:#000; border-radius:1px; transition:transform .25s, opacity .2s; }
+.menu-toggle.is-active span:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+.menu-toggle.is-active span:nth-child(2){ opacity:0; }
+.menu-toggle.is-active span:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
 
-/* --- Bouton COMMANDEZ --- */
+/* BORNEŌ */
 .order{
-    display: flex;
-    border: var(--br) solid #fd6b00;
-    text-decoration: none;
-    font-family: sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    color: #000;
+    display:flex; align-items:center; border:var(--br) solid #fd6b00;
+    border-radius:8px; overflow:hidden; text-decoration:none; color:#000; font-weight:700; font-size:13px;
 }
-.order-icon{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #FF6C00;
-    width: 38px;
-    height: var(--h);
-}
-.order-icon img{
-    width: 18px;
-    height: 18px;
-}
-.order-text{
-    display: flex;
-    align-items: center;
-    height: var(--h);
-    line-height: calc(var(--h) - 4px);
-    padding: 0 18px;
-    letter-spacing: 1.1px;
-}
+.order-icon{ display:grid; place-items:center; background:#FF6C00; width:38px; height:var(--h); }
+.order-icon img{ width:18px; height:18px; }
+.order-text{ display:flex; align-items:center; height:var(--h); padding:0 18px; letter-spacing:1.1px; }
 
-/* --- Logo central --- */
-.logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.logo-img{
-    width: var(--logoSize);
-    height: var(--logoSize);
-    border-radius: 50%;
-    object-fit: cover;
-    transform: translateY(-1px);
-}
+/* Logo */
+.logo-img{ width:var(--logoSize); height:var(--logoSize); border-radius:50%; object-fit:cover; transform:translateY(-1px); }
 
-/* --- Téléphone & Horaires --- */
-.phone{
-    display: flex;
-    align-items: center;
-    background: #111;
-    color: #fff;
-    font-weight: bold;
-    font-size: 13px;
-    height: var(--h);
-    line-height: calc(var(--h) - 4px);
-    padding: 0 18px;
-    border: var(--br) solid #111;
-    letter-spacing: 1.1px;
-    text-decoration: none;
+/* Téléphone (desktop) */
+.menu-phone{
+    display:inline-flex; align-items:center; gap:10px;
+    height:var(--h); padding:0 14px 0 10px;
+    border:var(--br) solid #111; border-radius:10px;
+    background:#111; color:#fff; text-decoration:none; font-weight:800; letter-spacing:1px;
+    transition: background .2s, border-color .2s, color .2s;
 }
+.menu-phone .label{ display:inline; }
+
+/* Horaires (desktop) */
 .hours{
-    display: flex;
-    align-items: center;
-    background: #fff;
-    color: #000;
-    font-weight: bold;
-    font-size: 13px;
-    height: var(--h);
-    line-height: calc(var(--h) - 4px);
-    padding: 0 18px;
-    border: var(--br) solid #000;
-    letter-spacing: 1.1px;
-    text-decoration: none;
+    display:inline-flex; align-items:center; gap:8px;
+    height:var(--h); padding:0 14px;
+    border:var(--br) solid #000; border-radius:10px;
+    background:#fff; color:#000; text-decoration:none; font-weight:800; letter-spacing:1px; font-size:13px;
+    transition: background .2s, border-color .2s, color .2s;
 }
+.hours .label{ display:inline; }
 
-/* --- Hover --- */
-.order:hover .order-text,
-.hours:hover{ background: #f4f4f4; }
-.phone:hover{ filter: brightness(1.07); }
+/* Icônes inline SVG : on les taille via la classe */
+.ico-badge{ width:22px; height:22px; }
 
-/* --- Responsive --- */
-@media (max-width: 640px){
-    :root{ --h: 34px; --logoSize: 78px; }
-    .order-text, .phone, .hours{
-        padding: 0 12px;
-        letter-spacing: 1px;
+/* Hovers desktop */
+.menu-phone:hover{ background:var(--gold); border-color:var(--gold); color:#fff; }
+.hours:hover{ background:#000; border-color:#000; color:#fff; }
+
+/* ============ Mobile (<=768px) ============ */
+@media (max-width:768px){
+    .header-inner{ grid-template-columns:1fr auto 1fr; padding:10px 16px; }
+    .header-left{ gap:14px; }
+    .header-center{ justify-content:center; }
+    :root{ --h:34px; --logoSize:78px; }
+
+    /* Borneō : icône seule */
+    .order{ border:none; border-radius:12px; overflow:visible; }
+    .order-text{ display:none; }
+    .order-icon{
+        width:40px; height:40px; border-radius:12px; background:#FF6C00;
+        box-shadow:0 6px 14px rgba(0,0,0,.10);
+    }
+    .order-icon img{ width:20px; height:20px; }
+
+    /* Téléphone : pastille */
+    .menu-phone{
+        width:40px; height:40px; padding:0; border:none;
+        border-radius:12px; background:#111; color:#fff; justify-content:center;
+        box-shadow:0 6px 14px rgba(0,0,0,.10);
+    }
+    .menu-phone .label{ display:none; }
+
+    /* Horaires : pastille horloge */
+    .hours{
+        width:40px; height:40px; padding:0; border:none;
+        border-radius:12px; background:#111; color:#fff; justify-content:center;
+        box-shadow:0 6px 14px rgba(0,0,0,.10);
+    }
+    .hours .label{ display:none; }
+
+    /* Petite pulsation sur mobile (optionnel) */
+    .menu-phone, .hours{
+        animation: btnPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes btnPulse{
+        0%,100%{ box-shadow:0 6px 14px rgba(0,0,0,.10); transform:translateY(0); }
+        50%{ box-shadow:0 10px 22px rgba(0,0,0,.14); transform:translateY(-1px); }
     }
 }
-.menu-toggle{ position:relative; width:24px; height:18px; }
-.menu-toggle span{ height:2px; width:100%; background:#000; border-radius:1px; transition:transform .25s, opacity .2s; display:block; }
-.menu-toggle.is-active span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
-.menu-toggle.is-active span:nth-child(2){ opacity:0; }
-.menu-toggle.is-active span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
-

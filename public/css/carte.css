@@ -54,9 +54,15 @@ main.container{
     background: linear-gradient(180deg, #1b1e23, #14171b);
     border-color:#3a3e45;
 }
-.anchors .pill[style*="background:#eee;"]{
+.anchors .pill:focus-visible{
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+/* État actif (remplace l’inline-style) */
+.anchors .pill.is-active{
     background: linear-gradient(180deg, var(--brand), var(--brand-2));
-    color:#111; border-color: transparent;
+    color:#111;
+    border-color: transparent;
 }
 
 /* ---------- Titres & séparateurs ---------- */
@@ -97,8 +103,10 @@ hr.sep{
     border-radius: var(--radius-sm);
     margin-bottom:12px;
     box-shadow: 0 6px 16px rgba(0,0,0,.35);
+    image-rendering: auto;
 }
 
+/* titres & texte */
 .item-title{
     display:flex; justify-content:space-between; gap:12px;
     font-weight:700; font-size:1.02rem;
@@ -153,7 +161,7 @@ hr.sep{
 *{ scrollbar-color: color-mix(in oklab, var(--brand) 75%, #000 25%) transparent; }
 
 /* ---------- Modale image (cohérente avec overlay du menu) ---------- */
-.img-lightbox{ position:fixed; inset:0; z-index:1000; }
+.img-lightbox{ position:fixed; inset:0; z-index:1400; } /* passe au-dessus du menu si besoin */
 .img-lightbox[hidden]{ display:none !important; }
 .img-lightbox-backdrop{
     position:absolute; inset:0;
@@ -187,7 +195,97 @@ hr.sep{
     box-shadow: 0 8px 20px rgba(0,0,0,.35);
 }
 
-/* ---------- Accessibilité ---------- */
+/* Transition douce pour la lightbox */
+.img-lightbox {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+.img-lightbox[aria-hidden="false"] { opacity: 1; }
+.img-lightbox-panel {
+    transform: translate(-50%, -48%);
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.img-lightbox[aria-hidden="false"] .img-lightbox-panel {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+/* ---------- Accessibilité & confort ---------- */
+html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; scroll-behavior:auto !important; }
+    html { scroll-behavior: auto; }
+    *{ transition:none !important; }
+}
+
+/* =========================
+   Responsive — Carte (menu)
+   ========================= */
+
+/* Grand mobile / petites tablettes */
+@media (max-width: 980px){
+    main.container{ padding: 28px 16px calc(56px + env(safe-area-inset-bottom)); max-width: 680px; }
+
+    .anchors{ gap:10px; margin: 16px 0 12px; }
+    .anchors .pill{ padding:9px 12px; font-size:.92rem; }
+
+    .section{ margin: 34px 0; }
+    .section h2{ font-size: clamp(1.2rem, 1rem + 1vw, 1.55rem); }
+
+    .slider{
+        grid-auto-columns: minmax(240px, 86vw);
+        gap: 14px;
+        padding-bottom: 8px;
+    }
+
+    .card{
+        min-height: 330px;
+        padding:14px;
+        border-radius: 12px;
+    }
+    .card .thumb{
+        aspect-ratio: 16/10;
+        border-radius: 10px;
+        margin-bottom:10px;
+    }
+
+    .item-title{ font-size: 1rem; gap:10px; }
+    .muted{ font-size:.93rem; }
+    .see-photo{ padding:7px 11px; border-radius: 9px; }
+}
+
+/* Mobile compact */
+@media (max-width: 640px){
+    html { font-size: 15.5px; }
+
+    .anchors{
+        gap: 8px;
+        margin: 14px 0 8px;
+    }
+    .anchors .pill{
+        padding:8px 12px;
+        font-size:.9rem;
+        border-radius: 999px;
+    }
+
+    .slider{
+        grid-auto-columns: 88vw; /* 1 carte bien large */
+        padding-bottom: 8px;
+    }
+
+    .card{
+        min-height: 310px;
+        padding:12px;
+        box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    .item-title{ font-size:.98rem; }
+    .muted{ font-size:.92rem; }
+    .see-photo{ font-size:.92rem; padding:7px 10px; }
+
+    .img-lightbox-panel{
+        max-width: 94vw; max-height: 92vh; padding: 12px;
+        border-radius: 14px;
+    }
+    .img-lightbox-panel img{ max-width: 90vw; max-height: 64vh; }
+    .img-lightbox-close{ width: 34px; height: 34px; }
 }

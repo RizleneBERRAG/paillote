@@ -24,15 +24,17 @@
     {{-- Filtres par catégorie --}}
     <nav class="anchors" aria-label="Catégories du menu">
         @php
-            $isActive = fn ($k) => (request('cat') === $k) ? ' style=background:#eee;' : '';
             $url = fn ($k) => $k ? route('menu', ['cat' => $k]) : route('menu');
+            $active = request('cat');
         @endphp
-        <a class="pill" href="{{ $url(null) }}"      {!! $isActive(null) !!}>Toutes</a>
-        <a class="pill" href="{{ $url('burgers') }}" {!! $isActive('burgers') !!}>Burgers</a>
-        <a class="pill" href="{{ $url('tacos') }}"   {!! $isActive('tacos') !!}>Tacos</a>
-        <a class="pill" href="{{ $url('sandwiches') }}" {!! $isActive('sandwiches') !!}>Sandwiches</a>
-        <a class="pill" href="{{ $url('salades') }}" {!! $isActive('salades') !!}>Salades</a>
-        <a class="pill" href="{{ $url('desserts') }}" {!! $isActive('desserts') !!}>Desserts</a>
+
+        <a class="pill {{ $active ? '' : 'is-active' }}" href="{{ $url(null) }}">Toutes</a>
+        <a class="pill {{ $active==='burgers' ? 'is-active' : '' }}" href="{{ $url('burgers') }}">Burgers</a>
+        <a class="pill {{ $active==='tacos' ? 'is-active' : '' }}" href="{{ $url('tacos') }}">Tacos</a>
+        <a class="pill {{ $active==='sandwiches' ? 'is-active' : '' }}" href="{{ $url('sandwiches') }}">Sandwiches</a>
+        <a class="pill {{ $active==='salades' ? 'is-active' : '' }}" href="{{ $url('salades') }}">Salades</a>
+        <a class="pill {{ $active==='desserts' ? 'is-active' : '' }}" href="{{ $url('desserts') }}">Desserts</a>
+
     </nav>
 
     <hr class="sep">
@@ -112,8 +114,8 @@
     document.addEventListener('click', e => {
         const btn = e.target.closest('.see-photo');
         if (btn) {
-            const box     = document.getElementById('img-lightbox');
-            const img     = document.getElementById('img-lightbox-img');
+            const box = document.getElementById('img-lightbox');
+            const img = document.getElementById('img-lightbox-img');
             const caption = document.getElementById('img-lightbox-caption');
             img.src = btn.dataset.img || '';
             caption.textContent = btn.dataset.title || '';
@@ -140,6 +142,15 @@
         }
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cat = new URLSearchParams(location.search).get('cat');
+        if (cat) document.getElementById(cat)?.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+</script>
+
+<script src="{{ asset('js/menu.js') }}" defer></script>
+<script src="{{ asset('js/equipe.js') }}" defer></script>
 
 </body>
 </html>

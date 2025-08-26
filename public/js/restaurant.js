@@ -1,93 +1,87 @@
 // public/js/restaurant.js
-document.addEventListener('DOMContentLoaded', () => {
+(() => {
+    const $  = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-    /* ============ 1) Intro (fade) ============ */
-    const intro = document.querySelector('.rest-intro');
-    const enterBtn = document.getElementById('restEnter');
-    const page = document.getElementById('rest-page');
+    /* ============ 1) Reveal on scroll ============ */
+    const initReveals = () => {
+        const reveals = $$('.reveal');
+        if (!reveals.length) return;
 
-    const closeIntro = () => {
-        if (!intro || intro.classList.contains('is-off')) return;
-        intro.classList.add('is-off');
-        setTimeout(() => {
-            intro.style.display = 'none';
-            if (page) {
-                page.style.opacity = '1';
-                page.animate(
-                    [{opacity:0, transform:'translateY(6px)'},{opacity:1, transform:'none'}],
-                    {duration:320, easing:'ease-out'}
-                );
-            }
-        }, 420);
-    };
-
-    if (enterBtn) enterBtn.addEventListener('click', closeIntro);
-    // auto-fallback si besoin
-    setTimeout(closeIntro, 1800);
-
-    /* ============ 2) Reveal on scroll ============ */
-    const reveals = document.querySelectorAll('.reveal');
-    if (reveals.length){
-        if ('IntersectionObserver' in window){
-            const io = new IntersectionObserver((entries)=>{
-                entries.forEach(en=>{
-                    if(en.isIntersecting){
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(en => {
+                    if (en.isIntersecting) {
                         en.target.classList.add('in');
                         io.unobserve(en.target);
                     }
                 });
-            }, {threshold:.18});
-            reveals.forEach(el=>io.observe(el));
+            }, { threshold: 0.18 });
+            reveals.forEach(el => io.observe(el));
         } else {
-            reveals.forEach(el=>el.classList.add('in'));
+            // Fallback anciens navigateurs
+            reveals.forEach(el => el.classList.add('in'));
         }
-    }
+    };
 
-    /* ============ 3) Filtres ============ */
-    const grid = document.getElementById('galleryGrid');
-    const btns = document.querySelectorAll('.gf-btn');
-    if (grid && btns.length){
-        btns.forEach(btn=>{
-            btn.addEventListener('click', ()=>{
-                btns.forEach(b=>b.classList.remove('is-active'));
+    /* ============ 2) Lightbox ============ */
+    const initLightbox = () => {
+        const lb      = $('#lightbox');
+        const lbImg   = $('#lightboxImg');
+        const lbClose = lb ? $('.lb-close', lb) : null;
+        if (!lb || !lbImg) return;
+
+        const open = (src) => {
+            lbImg.src = src;
+            lb.classList.add('is-open');
+            document.documentElement.classList.add('no-scroll');
+        };
+        const close = () => {
+            lb.classList.remove('is-open');
+            document.documentElement.classList.remove('no-scroll');
+            setTimeout(() => { lbImg.src = ''; }, 160);
+        };
+
+        // Ouvre depuis la grille
+        document.addEventListener('click', (e) => {
+            const img = e.target.closest('.g-item img');
+            if (img) {
+                open(img.getAttribute('data-full') || img.src);
+            }
+        }, { passive: true });
+
+        lbClose?.addEventListener('click', close);
+        lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+        window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { passive: true });
+    };
+
+    /* ============ 3) Filtres (pills) ============ */
+    const initFilters = () => {
+        const btns = $$('.gf-btn');
+        const grid = $('#galleryGrid');
+        if (!btns.length || !grid) return;
+
+        const apply = (filter) => {
+            $$('.g-item', grid).forEach(it => {
+                const cat = it.getAttribute('data-cat');
+                const show = (filter === 'all' || filter === cat);
+                it.classList.toggle('is-hidden', !show);
+            });
+        };
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btns.forEach(b => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
-                const f = btn.dataset.filter;
-                grid.querySelectorAll('.g-item').forEach(it=>{
-                    const cat = it.getAttribute('data-cat');
-                    it.classList.toggle('is-hidden', !(f==='all' || f===cat));
-                });
+                apply(btn.dataset.filter);
             });
         });
-    }
-
-    /* ============ 4) Lightbox ============ */
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightboxImg');
-    const lbClose = lb?.querySelector('.lb-close');
-
-    const openLB = (src) => {
-        if (!lb || !lbImg) return;
-        lbImg.src = src;
-        lb.classList.add('is-open');
-        document.documentElement.style.overflow = 'hidden';
-        document.body.style.overflow = 'hidden';
-    };
-    const closeLB = () => {
-        if (!lb) return;
-        lb.classList.remove('is-open');
-        document.documentElement.style.overflow = '';
-        document.body.style.overflow = '';
-        setTimeout(()=>{ if(lbImg) lbImg.src=''; }, 200);
     };
 
-    document.addEventListener('click', (e)=>{
-        const wrap = e.target.closest('.g-photo');
-        if (wrap && wrap.dataset.full){
-            e.preventDefault();
-            openLB(wrap.dataset.full);
-        }
+    /* ============ Boot ============ */
+    document.addEventListener('DOMContentLoaded', () => {
+        initReveals();
+        initLightbox();
+        initFilters();
     });
-    lbClose?.addEventListener('click', closeLB);
-    lb?.addEventListener('click', (e)=>{ if (e.target === lb) closeLB(); });
-    window.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeLB(); }, {passive:true});
-});
+})();
