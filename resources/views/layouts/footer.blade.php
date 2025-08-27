@@ -115,8 +115,6 @@
                             </a>
                         </li>
                     </ul>
-
-
                 </details>
 
                 <details class="links-col footer-accordion">
@@ -137,6 +135,8 @@
     </section>
 
 </footer>
+
+{{-- ===== Accordéons (inchangé) ===== --}}
 <script>
     document.addEventListener('click', (e) => {
         if (!window.matchMedia('(max-width: 768px)').matches) return;
@@ -163,5 +163,40 @@
         toggleAccordions(); // au chargement
         window.addEventListener("resize", toggleAccordions);
     });
+</script>
 
+{{-- ===== EmailJS : notif admin “nouvel abonné” (ne bloque pas Laravel) ===== --}}
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function(){
+        // ⚠️ remplace par ta vraie public key EmailJS
+        const PUBLIC_KEY = '0inxyCI23tIIDpDhL';
+        try { emailjs.init(PUBLIC_KEY); } catch(e){}
+    })();
+
+    document.addEventListener('DOMContentLoaded', function(){
+        const form = document.querySelector('.news-form');
+        if (!form) return;
+
+        form.addEventListener('submit', function(){
+            if (!window.emailjs) return; // on ne bloque pas si EmailJS est KO
+
+            const email = (form.querySelector('input[name="email"]')?.value || '').trim();
+            if (!email) return;
+
+            // ⚠️ remplace SERVICE_ID + TEMPLATE_ID par tes valeurs EmailJS
+            const SERVICE_ID  = 'service_j8gsazd';
+            const TEMPLATE_ID = 'template_newsletter_admin';
+
+            const params = {
+                subscriber_email: email,
+                site_name: 'La Paillote Fidésienne',
+                subscribed_at: new Date().toISOString(),
+                page_url: window.location.href
+            };
+
+            // “fire & forget” : on n’empêche pas la soumission Laravel
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, params).catch(()=>{});
+        });
+    });
 </script>

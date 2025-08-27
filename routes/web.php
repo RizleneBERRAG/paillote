@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Response;
 
+
 Route::view('/', 'home')->name('home');
 Route::view('/horaires', 'horaires')->name('horaires');
 Route::view('/contact', 'contact')->name('contact');
@@ -39,3 +40,11 @@ Route::get('/docs/{slug}', function (string $slug) {
     // Option 2 : afficher dans le navigateur (stream)
     // return response()->file($path, ['Cache-Control' => 'public, max-age=604800']);
 });
+
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+
+Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'send'])
+    ->name('contact.send');
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');

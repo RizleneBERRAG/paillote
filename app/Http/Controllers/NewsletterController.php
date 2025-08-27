@@ -22,13 +22,14 @@ class NewsletterController extends Controller
             'email.unique'   => 'Cet e-mail est déjà abonné.',
         ]);
 
+        $email = strtolower(trim($data['email']));
+
         DB::table('newsletter_subscribers')->insert([
-            'email'      => $data['email'],
+            'email'      => $email,
             'status'     => 'active',
             'created_at' => now(),
         ]);
 
-        return back()->with('status', 'Merci ! Votre inscription à la
-newsletter est prise en compte.');
+        return back()->with('status', 'Merci ! Votre inscription à la newsletter est prise en compte.');
     }
 }

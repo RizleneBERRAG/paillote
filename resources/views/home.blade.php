@@ -91,7 +91,7 @@
                         des suggestions végétariennes, des desserts maison et des boissons locales.
                         Tout est fait pour satisfaire vos papilles.
                     </p>
-                    <a href="{{ url('/menus') }}" class="btn-outline-gold">VOIR LA CARTE</a>
+                    <a href="{{ url('/menu') }}" class="btn-outline-gold">VOIR LA CARTE</a>
                 </div>
             </div>
 
