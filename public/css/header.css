@@ -1,94 +1,144 @@
 :root{
-    --h: 38px;             /* hauteur des boutons desktop */
-    --br: 2px;             /* bordures */
-    --logoSize: 92px;      /* logo desktop */
-    --gold: #b9965a;       /* or luxe */
+    --h: 38px;             /* Hauteur standard des boutons sur desktop */
+    --br: 2px;             /* Épaisseur des bordures */
+    --logoSize: 92px;      /* Taille du logo sur desktop */
+    --gold: #b9965a;       /* Couleur or luxe (hover, accents) */
 }
 
-header{ width:100%; background:#fff; border-bottom:1px solid #ddd; }
+header{
+    width:100%;
+    background:#fff;
+    border-bottom:1px solid #ddd; /* fine séparation grise */
+}
 
-/* Header collant */
+/* ===============================
+   HEADER COLLANT (sticky au scroll)
+   =============================== */
 .site-header{
-    position:sticky; top:0; z-index:1000;
-    background:#fff; border-bottom:1px solid #ddd;
-    transition: box-shadow .2s ease, border-color .2s ease;
+    position:sticky; top:0; z-index:1000;  /* reste visible en haut */
+    background:#fff;
+    border-bottom:1px solid #ddd;
+    transition: box-shadow .2s ease, border-color .2s ease; /* animation douce */
 }
-.site-header.is-scrolled{ border-color:transparent; box-shadow:0 6px 14px rgba(0,0,0,.08); }
+/* État quand on scrolle */
+.site-header.is-scrolled{
+    border-color:transparent;
+    box-shadow:0 6px 14px rgba(0,0,0,.08); /* effet flottant */
+}
 
+/* Conteneur interne du header : grille 3 colonnes */
 .header-inner{
     max-width:1300px; margin:0 auto; padding:12px 20px;
-    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; column-gap:28px;
+    display:grid; grid-template-columns:1fr auto 1fr;
+    align-items:center; column-gap:28px;
 }
+/* Colonnes gauche, centre, droite */
 .header-left{ display:flex; align-items:center; gap:26px; justify-content:flex-start; }
 .header-center{ display:flex; align-items:center; justify-content:center; }
 .header-right{ display:flex; align-items:center; gap:20px; justify-content:flex-end; }
 
-/* Burger */
+/* ===============================
+   BOUTON BURGER (menu mobile)
+   =============================== */
 .menu-toggle{
     display:flex; flex-direction:column; justify-content:space-between;
-    width:22px; height:16px; background:none; border:0; padding:0; cursor:pointer;
+    width:22px; height:16px;
+    background:none; border:0; padding:0;
+    cursor:pointer;
 }
-.menu-toggle span{ display:block; height:2px; width:100%; background:#000; border-radius:1px; transition:transform .25s, opacity .2s; }
+.menu-toggle span{
+    display:block; height:2px; width:100%;
+    background:#000; border-radius:1px;
+    transition:transform .25s, opacity .2s;
+}
+/* Animation croix quand actif */
 .menu-toggle.is-active span:nth-child(1){ transform:translateY(8px) rotate(45deg); }
 .menu-toggle.is-active span:nth-child(2){ opacity:0; }
 .menu-toggle.is-active span:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
 
-/* BORNEŌ */
+/* ===============================
+   CTA BORNEŌ (Commander)
+   =============================== */
 .order{
-    display:flex; align-items:center; border:var(--br) solid #fd6b00;
-    border-radius:8px; overflow:hidden; text-decoration:none; color:#000; font-weight:700; font-size:13px;
+    display:flex; align-items:center;
+    border:var(--br) solid #fd6b00; /* contour orange */
+    border-radius:8px; overflow:hidden;
+    text-decoration:none; color:#000;
+    font-weight:700; font-size:13px;
 }
-.order-icon{ display:grid; place-items:center; background:#FF6C00; width:38px; height:var(--h); }
+.order-icon{
+    display:grid; place-items:center;
+    background:#FF6C00;
+    width:38px; height:var(--h);
+}
 .order-icon img{ width:18px; height:18px; }
-.order-text{ display:flex; align-items:center; height:var(--h); padding:0 18px; letter-spacing:1.1px; }
+.order-text{
+    display:flex; align-items:center;
+    height:var(--h); padding:0 18px;
+    letter-spacing:1.1px;
+}
 
-/* Logo */
-.logo-img{ width:var(--logoSize); height:var(--logoSize); border-radius:50%; object-fit:cover; transform:translateY(-1px); }
+/* ===============================
+   LOGO
+   =============================== */
+.logo-img{
+    width:var(--logoSize); height:var(--logoSize);
+    border-radius:50%; object-fit:cover;
+    transform:translateY(-1px); /* léger ajustement vertical */
+}
 
-/* Téléphone (desktop) */
+/* ===============================
+   TÉLÉPHONE (desktop)
+   =============================== */
 .menu-phone{
     display:inline-flex; align-items:center; gap:10px;
     height:var(--h); padding:0 14px 0 10px;
     border:var(--br) solid #111; border-radius:10px;
-    background:#111; color:#fff; text-decoration:none; font-weight:800; letter-spacing:1px;
+    background:#111; color:#fff;
+    text-decoration:none; font-weight:800; letter-spacing:1px;
     transition: background .2s, border-color .2s, color .2s;
 }
 .menu-phone .label{ display:inline; }
 
-/* Horaires (desktop) */
+/* ===============================
+   HORAIRES (desktop)
+   =============================== */
 .hours{
     display:inline-flex; align-items:center; gap:8px;
     height:var(--h); padding:0 14px;
     border:var(--br) solid #000; border-radius:10px;
-    background:#fff; color:#000; text-decoration:none; font-weight:800; letter-spacing:1px; font-size:13px;
+    background:#fff; color:#000;
+    text-decoration:none; font-weight:800; letter-spacing:1px; font-size:13px;
     transition: background .2s, border-color .2s, color .2s;
 }
 .hours .label{ display:inline; }
 
-/* Icônes inline SVG : on les taille via la classe */
+/* Icônes inline SVG */
 .ico-badge{ width:22px; height:22px; }
 
-/* Hovers desktop */
+/* Effets hover sur desktop */
 .menu-phone:hover{ background:var(--gold); border-color:var(--gold); color:#fff; }
 .hours:hover{ background:#000; border-color:#000; color:#fff; }
 
-/* ============ Mobile (<=768px) ============ */
+/* ===============================
+   MOBILE (≤768px)
+   =============================== */
 @media (max-width:768px){
     .header-inner{ grid-template-columns:1fr auto 1fr; padding:10px 16px; }
     .header-left{ gap:14px; }
     .header-center{ justify-content:center; }
-    :root{ --h:34px; --logoSize:78px; }
+    :root{ --h:34px; --logoSize:78px; } /* tailles réduites */
 
-    /* Borneō : icône seule */
+    /* Borneō : bouton simplifié (icône seule) */
     .order{ border:none; border-radius:12px; overflow:visible; }
-    .order-text{ display:none; }
+    .order-text{ display:none; } /* texte masqué */
     .order-icon{
         width:40px; height:40px; border-radius:12px; background:#FF6C00;
         box-shadow:0 6px 14px rgba(0,0,0,.10);
     }
     .order-icon img{ width:20px; height:20px; }
 
-    /* Téléphone : pastille */
+    /* Téléphone : pastille ronde */
     .menu-phone{
         width:40px; height:40px; padding:0; border:none;
         border-radius:12px; background:#111; color:#fff; justify-content:center;
@@ -96,7 +146,7 @@ header{ width:100%; background:#fff; border-bottom:1px solid #ddd; }
     }
     .menu-phone .label{ display:none; }
 
-    /* Horaires : pastille horloge */
+    /* Horaires : pastille icône horloge */
     .hours{
         width:40px; height:40px; padding:0; border:none;
         border-radius:12px; background:#111; color:#fff; justify-content:center;
@@ -104,7 +154,7 @@ header{ width:100%; background:#fff; border-bottom:1px solid #ddd; }
     }
     .hours .label{ display:none; }
 
-    /* Petite pulsation sur mobile (optionnel) */
+    /* Animation pulsation discrète sur mobile */
     .menu-phone, .hours{
         animation: btnPulse 2.4s ease-in-out infinite;
     }

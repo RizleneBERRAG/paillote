@@ -138,7 +138,7 @@
 
                         <div class="contact-actions">
                             <a class="btn-outline-gold" href="https://borneoapp.com/LaPailloteFidesienneSFLL" target="_blank" rel="noopener">Commander</a>
-                            <a class="btn-outline" href="https://maps.google.com/?q=1+Av.+de+Limburg,+69110+Sainte-Foy-L%C3%A8s-Lyon" target="_blank" rel="noopener">Ouvrir dans Google Maps</a>
+                            <a class="btn-outline" href="https://maps.google.com/?q=1+Av.+de+Limburg,+69110+Sainte-Foy-L%C3%A8s-Lyon" target="_blank" rel="noopener">Google Maps</a>
                         </div>
                     </div>
 

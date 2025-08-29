@@ -1,25 +1,25 @@
 :root{
-    /* Couleurs */
-    --black:#0d0d0d;
-    --white:#fff;
-    --line:#111;
-    --gold:#b9965a;
-    --muted:#d8d8d8;
+    /* Couleurs principales */
+    --black:#0d0d0d;   /* Noir profond pour les fonds */
+    --white:#fff;      /* Blanc pur pour contrastes */
+    --line:#111;       /* Noir “encre” pour traits */
+    --gold:#b9965a;    /* Doré premium (accents) */
+    --muted:#d8d8d8;   /* Gris clair pour textes secondaires */
 
-    /* Rondeurs */
-    --radius:18px;
-    --radius-lg:22px;
+    /* Arrondis */
+    --radius:18px;     /* Coins arrondis standards */
+    --radius-lg:22px;  /* Coins arrondis plus larges */
 
-    /* Dimensions */
-    --maxw:1180px;
-    --gap:28px;
+    /* Dimensions globales */
+    --maxw:1180px;     /* Largeur maximale du contenu */
+    --gap:28px;        /* Espace générique */
 
     /* Polices */
-    --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-    --font-title:"Cinzel",serif;
+    --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; /* Texte courant */
+    --font-title:"Cinzel",serif; /* Titres élégants */
 }
 
-/* Accessibilité : texte masqué visuellement */
+/* Accessibilité : cacher du texte visuellement (screen readers uniquement) */
 .visually-hidden{
     position:absolute!important; height:1px; width:1px; overflow:hidden;
     clip:rect(1px,1px,1px,1px); white-space:nowrap;
@@ -33,10 +33,11 @@
    ========================= */
 .newsletter-wrap{ padding:24px 16px; background:#fff; }
 .newsletter{
+    /* Conteneur principal de la newsletter */
     max-width:var(--maxw);
     margin:0 auto;
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1fr 1fr; /* Deux colonnes : photo + formulaire */
     gap:24px;
     align-items:center;
     background:#fff;
@@ -46,6 +47,7 @@
     color:#111;
 }
 .news-photo img{
+    /* Image à gauche */
     width:100%;
     aspect-ratio:4/3;
     object-fit:cover;
@@ -53,6 +55,7 @@
     box-shadow:0 12px 26px rgba(0,0,0,.08);
 }
 .news-title{
+    /* Titre newsletter */
     margin:0 0 8px;
     text-align:center;
     font-family:var(--font-title);
@@ -61,6 +64,7 @@
     color:#111;
 }
 .news-form{
+    /* Formulaire : input + bouton */
     display:grid;
     grid-template-columns:1fr auto;
     gap:10px;
@@ -74,7 +78,7 @@
     padding:10px 12px;
     border-radius:12px;
     border:1px solid #e7e7e7;
-    font-size:16px; /* anti-zoom iOS */
+    font-size:16px; /* évite zoom iOS */
     outline:none;
     transition:border-color .18s ease, box-shadow .18s ease;
 }
@@ -83,6 +87,7 @@
     box-shadow:0 0 0 3px rgba(185,150,90,.16);
 }
 .news-submit{
+    /* Bouton envoi (valeur par défaut ; sera uniformisé plus bas) */
     width:46px; height:46px;
     border-radius:12px;
     border:2px solid var(--gold);
@@ -95,6 +100,7 @@
 .news-submit:hover{ filter:brightness(1.05); box-shadow:0 8px 22px rgba(185,150,90,.18); }
 .news-submit:active{ transform:translateY(1px); }
 .news-text{
+    /* Texte d’explication sous le formulaire */
     margin:8px 0 0;
     color:#222;
     line-height:1.45;
@@ -103,10 +109,10 @@
     margin-inline:auto;
 }
 
-/* Flash messages */
+/* Messages de retour */
 .flash{ margin:6px 0 0; font-size:14px; }
-.flash.ok{ color:#2e7d32; }
-.flash.ko{ color:#c62828; }
+.flash.ok{ color:#2e7d32; }  /* Succès (vert) */
+.flash.ko{ color:#c62828; }  /* Erreur (rouge) */
 
 /* =========================
    FOOTER NOIR
@@ -117,11 +123,12 @@
     position:relative;
 }
 .footer-container{
+    /* Structure principale */
     max-width:1320px;
     margin:0 auto 18px;
     padding:0 18px;
     display:grid;
-    grid-template-columns:420px 1fr;
+    grid-template-columns:420px 1fr; /* gauche : logo/adresse, droite : liens */
     gap:40px 48px;
     align-items:start;
 }
@@ -138,7 +145,7 @@
 .f-left .addr a:hover,
 .f-left .addr a:focus-visible{ border-color:#fff; outline:none; }
 
-/* Socials */
+/* Réseaux sociaux */
 .socials{ display:flex; gap:12px; margin-top:16px; flex-wrap:wrap; }
 .social{
     width:44px; height:44px; display:grid; place-items:center;
@@ -146,7 +153,7 @@
     transition:background .2s ease, color .2s ease, transform .06s ease, border-color .2s ease;
     box-shadow:0 8px 16px rgba(0,0,0,.18);
 }
-.social:nth-child(3){ color:#f39c12; border-color:#f39c12; } /* Borneo */
+.social:nth-child(3){ color:#f39c12; border-color:#f39c12; } /* Icône spéciale Borneō */
 .social:hover{ background:#fff; color:#000; transform:translateY(-1px); }
 .social:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
 
@@ -158,7 +165,7 @@
 }
 
 /* =========================
-   Accordéons (base + mobile)
+   Accordéons (mobile)
    ========================= */
 .footer-accordion summary{
     list-style:none;
@@ -170,6 +177,7 @@
     padding:10px 0;
 }
 .footer-accordion summary::after{
+    /* Flèche indicatrice */
     content:"›";
     transform:rotate(90deg);
     transition:transform .25s ease;
@@ -186,6 +194,7 @@
 .footer-accordion[open] ul{ max-height:300px; }
 
 .links-col a{
+    /* Liens footer */
     color:#fff; text-decoration:none; opacity:.95; border-bottom:1px solid transparent;
     line-height:1.6; font-size:15px; padding:2px 0;
     transition:opacity .2s, border-color .2s, transform .06s;
@@ -195,14 +204,14 @@
     opacity:1; border-color:#fff; transform:translateX(1px); outline:none;
 }
 
-/* Divider subtil (utile en mobile) */
+/* Ligne de séparation subtile */
 .footer-divider{
     height:1px; margin:10px 0 6px;
     background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
     border:0;
 }
 
-/* Copyright & barre or */
+/* Copyright + barre dorée */
 .copy{
     text-align:center; margin:22px 0 14px; font-size:13px;
     color:rgba(255,255,255,.85);
@@ -236,12 +245,7 @@
     }
     .news-photo img{ aspect-ratio:16/9; border-radius:12px; }
     .news-title{ font-size:18px; margin-bottom:4px; }
-    .news-form{
-        grid-template-columns:1fr auto;
-        gap:8px;
-        margin-top:2px;
-        border:0; box-shadow:none;
-    }
+    .news-form{ grid-template-columns:1fr auto; gap:8px; margin-top:2px; border:0; box-shadow:none; }
     .news-form input{ height:44px; padding:10px 12px; font-size:16px; }
     .news-submit{ width:44px; height:44px; }
     .news-text{ font-size:14px; line-height:1.45; margin-top:2px; }
@@ -252,7 +256,7 @@
     .footer-main{ padding-top:44px; }
 }
 
-/* Motion safe */
+/* Motion safe (désactive transitions si option réduite activée) */
 @media (prefers-reduced-motion:reduce){
     *{ transition:none !important; }
 }
@@ -260,31 +264,28 @@
 /* ===== Version bureau (≥769px) : accordéons ouverts / non cliquables ===== */
 @media (min-width:769px){
     .footer-accordion{ border:0; padding:0; }
-    .footer-accordion summary{
-        pointer-events:none;
-        padding:0; margin:0 0 8px;
-    }
+    .footer-accordion summary{ pointer-events:none; padding:0; margin:0 0 8px; }
     .footer-accordion summary::-webkit-details-marker{ display:none; }
     .footer-accordion summary::after{ display:none !important; }
     .footer-accordion ul{ max-height:none !important; overflow:visible !important; }
 }
 
 /* =========================
-   Overrides newsletter sur page Restaurant
+   Overrides newsletter — PAGE RESTAURANT
+   (on garde l’input transparent, mais pas le bouton submit)
    ========================= */
 .rest-page ~ .site-footer .news-form,
 .rest-page ~ .site-footer .news-form *{
     box-shadow:none !important;
     background:transparent !important;
 }
-
 .rest-page ~ .site-footer .news-form{
     border:0 !important;
     grid-template-columns:1fr auto;
     position:relative;
 }
-
 .rest-page ~ .site-footer .news-form input{
+    /* Input transparent (fond sombre) */
     -webkit-appearance:none; appearance:none;
     width:100%;
     color:#fff !important;
@@ -303,13 +304,116 @@
     border-bottom:2px solid var(--gold) !important;
     box-shadow:0 3px 0 rgba(185,150,90,.28) inset !important;
 }
-.rest-page ~ .site-footer .news-form .news-submit{
-    color:var(--gold) !important; background:transparent !important; border:0 !important;
-    position:absolute; right:0; top:50%; transform:translateY(-50%);
+
+/* =========================
+   ⚠️ UNIFORMISATION DÉFINITIVE DU BOUTON SUBMIT
+   (mettre ce bloc tout en bas pour gagner la cascade)
+   ========================= */
+.site-footer .news-form .news-submit{
+    /* carré exact */
+    box-sizing:border-box;
+    width:46px;
+    height:46px;
+    padding:0 !important;
+    line-height:46px;
+
+    /* visuel */
+    border-radius:12px;
+    border:2px solid var(--gold);
+    background:var(--gold);
+    color:#fff;
+
+    display:inline-grid;
+    place-items:center;
+
+    cursor:pointer;
+    transition:filter .18s ease, box-shadow .18s ease, transform .06s ease;
 }
-.rest-page ~ .site-footer .news-form .news-submit:hover,
-.rest-page ~ .site-footer .news-form .news-submit:focus-visible{
+.site-footer .news-form .news-submit:hover{
+    filter:brightness(1.05);
+    box-shadow:0 8px 22px rgba(185,150,90,.18);
+}
+.site-footer .news-form .news-submit:active{ transform:translateY(1px); }
+
+/* Si la flèche est un <svg>, elle héritera bien du blanc */
+.site-footer .news-form .news-submit svg{
+    width:16px; height:16px; fill:currentColor;
+}
+
+/* Page Restaurant : on force le bouton doré plein et on annule l’absolu */
+.rest-page ~ .site-footer .news-form .news-submit{
+    background:var(--gold) !important;
+    border:2px solid var(--gold) !important;
     color:#fff !important;
-    text-shadow:0 0 6px var(--gold), 0 0 12px var(--gold);
-    transform:translate(2px, -50%);
+
+    position:static !important;
+    top:auto !important; right:auto !important; transform:none !important;
+
+    padding:0 !important;
+    box-sizing:border-box !important;
+}
+/* === NEWSLETTER — bouton flèche : même rendu partout (carré 46x46 doré) === */
+.site-footer .news-form{
+    grid-template-columns: 1fr auto;       /* champ | bouton */
+    align-items: center;
+    gap: 10px;                              /* espace net entre les deux */
+    overflow: visible;                      /* évite un clipping du bouton */
+}
+
+.site-footer .news-form input{
+    height: 46px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+/* Bouton flèche unifié */
+.site-footer .news-form .news-submit{
+    /* carré exact (pas gonflé par le padding UA) */
+    box-sizing: border-box;
+    width: 46px;
+    height: 46px;
+    padding: 0 !important;
+    line-height: 46px;
+
+    /* visuel */
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+    background: var(--gold);
+    color: #fff;
+
+    /* placement et centrage */
+    position: static !important;            /* (annule tout absolute/transform) */
+    margin: 0 !important;                   /* pas de décalage intempestif */
+    display: inline-grid;
+    place-items: center;
+
+    /* feedback */
+    cursor: pointer;
+    transition: filter .18s ease, box-shadow .18s ease, transform .06s ease;
+}
+.site-footer .news-form .news-submit:hover{
+    filter: brightness(1.05);
+    box-shadow: 0 8px 22px rgba(185,150,90,.18);
+}
+.site-footer .news-form .news-submit:active{ transform: translateY(1px); }
+
+/* Si c'est un <svg> pour la flèche */
+.site-footer .news-form .news-submit svg{
+    width: 16px; height: 16px; fill: currentColor;
+}
+
+/* === Cas “page Restaurant” : neutralise les styles transparents globaux === */
+.rest-page ~ .site-footer .news-form .news-submit{
+    background: var(--gold) !important;
+    border: 2px solid var(--gold) !important;
+    color: #fff !important;
+
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
 }

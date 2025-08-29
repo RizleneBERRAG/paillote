@@ -1,60 +1,61 @@
 :root{
-    --gold:#b9965a;
-    --black:#0d0d0d;
-    --ink:#111;
-    --muted:#555;
-    --maxw:1180px;
-    --container: min(var(--maxw), 92vw);
+    /* Variables globales pour la page Contact (couleurs, largeurs) */
+    --gold:#b9965a;                 /* Doré d'accent (boutons, focus) */
+    --black:#0d0d0d;                /* Noir profond (fonds foncés) */
+    --ink:#111;                     /* Noir “encre” pour le texte principal */
+    --muted:#555;                   /* Gris pour textes secondaires */
+    --maxw:1180px;                  /* Largeur max de mise en page */
+    --container: min(var(--maxw), 92vw); /* Conteneur fluide : 92% du viewport max 1180px */
 }
 
 /* =========================
    HERO
    ========================= */
 .contact-hero{
-    position: relative;
-    min-height: clamp(40vh, 56vh, 62vh);
-    overflow: hidden;
+    position: relative;                 /* Nécessaire pour positionner l'arrière-plan en absolu */
+    min-height: clamp(40vh, 56vh, 62vh);/* Hauteur responsive entre 40% et 62% de la hauteur écran */
+    overflow: hidden;                   /* Coupe ce qui dépasse (image de fond agrandie) */
 }
 .contact-hero-bg{
-    position:absolute; inset:0;
+    position:absolute; inset:0;         /* L'image couvre toute la section */
     width:100%; height:100%;
-    object-fit:cover; object-position:center 50%;
-    transform: scale(1.02);
-    filter: saturate(1.02);
+    object-fit:cover; object-position:center 50%; /* Remplir sans déformer, cadré au centre */
+    transform: scale(1.02);             /* Légère mise à l'échelle pour éviter bandes vides au scroll */
+    filter: saturate(1.02);             /* Un tout petit boost de couleurs */
 }
 .contact-hero-inner{
-    position:relative; z-index:2;
-    display:grid; place-items:center;
+    position:relative; z-index:2;       /* Au-dessus de l'image de fond */
+    display:grid; place-items:center;   /* Centre le contenu (titre/sous-titre) */
     text-align:center; color:#fff;
-    padding: 54px 16px;
-    min-height: inherit;
+    padding: 54px 16px;                 /* Respire en haut/bas et sur les côtés */
+    min-height: inherit;                /* Même min-height que .contact-hero */
     background:
-        linear-gradient(0deg, rgba(0,0,0,.62), rgba(0,0,0,.28));
+        linear-gradient(0deg, rgba(0,0,0,.62), rgba(0,0,0,.28)); /* Voile sombre pour lisibilité */
 }
 .contact-title{
     margin:0 0 8px;
-    font-family:"Cinzel", serif;
-    letter-spacing:.6px;
-    font-size: clamp(24px, 4vw, 38px);
+    font-family:"Cinzel", serif;        /* Titres élégants (sérif) */
+    letter-spacing:.6px;                 /* Espacement léger entre lettres */
+    font-size: clamp(24px, 4vw, 38px);  /* Taille fluide selon l'écran */
 }
-.contact-sub{ margin:0; opacity:.95 }
+.contact-sub{ margin:0; opacity:.95 }   /* Sous-titre blanc légèrement transparent */
 
 /* =========================
    LAYOUT
    ========================= */
 .contact-main{
-    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    color:var(--ink);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; /* Police UI lisible */
+    color:var(--ink);                   /* Texte principal sombre */
 }
 .contact-wrap{
-    width:var(--container);
-    margin: clamp(28px, 6vw, 70px) auto;
+    width:var(--container);             /* Conteneur fluide centré */
+    margin: clamp(28px, 6vw, 70px) auto;/* Marges verticales responsives */
 }
 .contact-grid{
     display:grid;
-    grid-template-columns: 1.15fr .85fr;
-    gap: clamp(22px, 4vw, 48px);
-    align-items:start;
+    grid-template-columns: 1.15fr .85fr;/* Deux colonnes : contenu + infos/carte */
+    gap: clamp(22px, 4vw, 48px);        /* Espace fluide entre colonnes */
+    align-items:start;                   /* Aligne les cartes en haut */
 }
 
 /* =========================
@@ -63,16 +64,16 @@
 .contact-card,
 .info-card,
 .map-card{
-    background:#fff;
-    border-radius:18px;
-    box-shadow: 0 14px 40px rgba(0,0,0,.08);
-    border: 1px solid rgba(0,0,0,.06);
+    background:#fff;                    /* Cartes en fond blanc */
+    border-radius:18px;                 /* Bords arrondis doux */
+    box-shadow: 0 14px 40px rgba(0,0,0,.08); /* Ombre légère pour relief */
+    border: 1px solid rgba(0,0,0,.06);  /* Fin liseré gris très clair */
 }
-.contact-card{ padding: clamp(18px, 3.5vw, 28px); }
-.info-card{ padding: clamp(16px, 3vw, 22px); }
-.map-card{ overflow:hidden; }
+.contact-card{ padding: clamp(18px, 3.5vw, 28px); } /* Padding responsive */
+.info-card{    padding: clamp(16px, 3vw, 22px);  }
+.map-card{ overflow:hidden; }           /* Masque les débords de l'iframe */
 .map-card iframe{
-    display:block; width:100%; height:380px; border:0;
+    display:block; width:100%; height:380px; border:0; /* Carte Google pleine largeur, sans bordure */
 }
 
 /* =========================
@@ -80,45 +81,45 @@
    ========================= */
 .contact-h2{
     margin: 0 0 12px;
-    font-family:"Cinzel", serif;
+    font-family:"Cinzel", serif;        /* Cohérence avec le hero */
     font-size: clamp(18px, 2.2vw, 22px);
     letter-spacing:.4px;
-    color:#000;
+    color:#000;                         /* Titre bien contrasté sur fond blanc */
 }
 
 /* =========================
    FORM
    ========================= */
-.contact-form{ display:flex; flex-direction:column; gap:14px; }
-.form-row{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
-.form-field{ display:flex; flex-direction:column; gap:8px; }
+.contact-form{ display:flex; flex-direction:column; gap:14px; } /* Formulaire en colonne avec espace régulier */
+.form-row{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; } /* Deux champs côte à côte */
+.form-field{ display:flex; flex-direction:column; gap:8px; }    /* Label au-dessus du champ */
 .form-field label{ font-size:14px; color:#333; }
-.hp{ position:absolute; left:-9999px; }
+.hp{ position:absolute; left:-9999px; } /* Champ “honeypot” anti-bot caché */
 
 input[type="text"],
 input[type="email"],
 input[type="tel"],
 select,
 textarea{
-    -webkit-appearance: none;
-    border:1px solid #e7e7e7;
-    padding:12px 12px;
-    border-radius:10px;
-    font-size:16px; /* évite le zoom iOS */
+    -webkit-appearance: none;           /* Normalise l’apparence iOS */
+    border:1px solid #e7e7e7;           /* Bordure discrète */
+    padding:12px 12px;                  /* Zone de saisie confortable */
+    border-radius:10px;                 /* Forme moderne */
+    font-size:16px;                     /* Empêche le zoom automatique iOS */
     outline:none;
     transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
     background:#fff;
     color:#111;
 }
-textarea{ resize:none; min-height:120px; }
-input::placeholder, textarea::placeholder{ color:#9aa1a7; }
+textarea{ resize:none; min-height:120px; } /* Hauteur de base pour zone de message */
+input::placeholder, textarea::placeholder{ color:#9aa1a7; } /* Placeholder gris */
 input:focus,
 select:focus,
 textarea:focus{
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(185,150,90,.16);
+    border-color: var(--gold);          /* Accent doré au focus */
+    box-shadow: 0 0 0 3px rgba(185,150,90,.16); /* Halo doré doux */
 }
-/* état d’erreur possible */
+/* état d’erreur possible – à appliquer via classe quand la validation échoue */
 .is-invalid{
     border-color:#d93025 !important;
     box-shadow: 0 0 0 3px rgba(217,48,37,.1) !important;
@@ -126,36 +127,52 @@ textarea:focus{
 
 /* checkbox */
 .check{ display:flex; align-items:center; gap:10px; font-size:14px; color:#333; }
-.check input{ width:18px; height:18px; }
+.check input{ width:18px; height:18px; } /* Taille confortable */
 
-/* autofill iOS/Chrome */
+/* autofill iOS/Chrome (empêche fond jaune) */
 input:-webkit-autofill,
 textarea:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px #fff inset;
+    -webkit-box-shadow: 0 0 0 1000px #fff inset; /* Force fond blanc */
     -webkit-text-fill-color:#111;
-    transition: background-color 9999s ease-in-out 0s;
+    transition: background-color 9999s ease-in-out 0s; /* Hack pour neutraliser l’animation */
 }
 
 /* === FIX alignement input + bouton === */
+/* Rangée spéciale : champ + bouton sur la même ligne, alignés */
 .contact-form .input-row{
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto;    /* Le champ prend la place, le bouton s'adapte */
     align-items: center;
     gap: 12px;
 }
+
+.contact-actions {
+    display: flex;
+    gap: 12px;              /* espace entre les boutons */
+    max-width: 480px;       /* optionnel : limite de largeur */
+}
+
+.contact-actions a {
+    flex: 1;                /* les deux prennent la même largeur */
+    text-align: center;     /* texte centré */
+    display: inline-flex;   /* pour un bon centrage vertical */
+    justify-content: center;
+    align-items: center;
+}
+
 .contact-form .input-row input[type="text"],
 .contact-form .input-row input[type="email"],
 .contact-form .input-row input[type="tel"],
 .contact-form .input-row select{
-    height: 48px;
+    height: 48px;                       /* Même hauteur que le bouton */
     margin: 0;
 }
 .contact-form .input-row .btn-solid-gold{
-    align-self: center !important;
+    align-self: center !important;      /* Centré verticalement */
     margin: 0 !important;
-    height: 48px;
+    height: 48px;                       /* Hauteur identique aux inputs */
     padding: 0 16px;
-    position: static !important;
+    position: static !important;        /* Annule toute position absolue éventuelle */
     top: auto !important;
     right: auto !important;
     transform: none !important;
@@ -164,8 +181,10 @@ textarea:-webkit-autofill{
 /* =========================
    BOUTONS
    ========================= */
+
+
 .btn-solid-gold{
-    align-self:flex-start;
+    align-self:flex-start;              /* Le bouton se place à gauche par défaut */
     background: var(--gold);
     color: #ffffff;
     border:2px solid var(--gold);
@@ -175,7 +194,7 @@ textarea:-webkit-autofill{
     letter-spacing:.5px;
     cursor:pointer;
     transition: transform .06s ease, filter .18s ease, box-shadow .18s ease;
-    min-height:44px;
+    min-height:44px;                    /* Cible tactile minimum */
 }
 .btn-solid-gold:hover{ filter:brightness(1.05); box-shadow:0 8px 24px rgba(185,150,90,.18); }
 .btn-solid-gold:active{ transform: translateY(1px); }
@@ -192,17 +211,17 @@ textarea:-webkit-autofill{
     min-height:44px;
 }
 .btn-outline-gold{
-    color:#fd6c00; border:2px solid currentColor; background:#fff;
+    color:#fd6c00; border:2px solid currentColor; background:#fff; /* Contour orange Borneō */
 }
 .btn-outline-gold:hover{ background:#fd6c00; color:#fff; box-shadow:0 8px 22px rgba(253,108,0,.18); }
 .btn-outline{
-    color:#111; border:2px solid #111; background:#fff;
+    color:#111; border:2px solid #111; background:#fff;          /* Contour noir classique */
 }
 .btn-outline:hover{ background:#111; color:#fff; }
 
 /* group */
 .contact-actions{
-    display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;     /* Groupe de boutons flexible */
 }
 
 /* =========================
@@ -210,71 +229,71 @@ textarea:-webkit-autofill{
    ========================= */
 .contact-infos{
     list-style:none; padding:0; margin: 0 0 4px;
-    display:flex; flex-direction:column; gap:10px;
+    display:flex; flex-direction:column; gap:10px;               /* Liste verticalement espacée */
 }
-.contact-infos li{ display:flex; align-items:center; gap:10px; }
+.contact-infos li{ display:flex; align-items:center; gap:10px; } /* Icône + texte alignés */
 .contact-infos a{ color:inherit; text-decoration:none; border-bottom:1px solid transparent; }
-.contact-infos a:hover{ border-color: currentColor; }
+.contact-infos a:hover{ border-color: currentColor; }            /* Liseré sous lien au survol */
 
 /* =========================
    FLASH
    ========================= */
 .flash{
-    padding:10px 12px; border-radius:10px; font-size:14px;
+    padding:10px 12px; border-radius:10px; font-size:14px;       /* Style générique de message */
 }
 .flash-ok{
-    background:#ecf8ee; color:#1b5e20; border:1px solid #cfead5;
+    background:#ecf8ee; color:#1b5e20; border:1px solid #cfead5; /* Succès (vert) */
 }
 .flash-ko{
-    background:#fff2f2; color:#b00020; border:1px solid #f6cccc;
+    background:#fff2f2; color:#b00020; border:1px solid #f6cccc; /* Erreur (rouge) */
 }
 
 /* =========================
    RESPONSIVE
    ========================= */
 @media (max-width: 960px){
-    .contact-wrap{ width: min(var(--maxw), 94vw); }
-    .contact-grid{ grid-template-columns:1fr; }
-    .form-row{ grid-template-columns:1fr; }
-    .map-card iframe{ height: 320px; }
+    .contact-wrap{ width: min(var(--maxw), 94vw); }              /* Conteneur un peu plus large en % */
+    .contact-grid{ grid-template-columns:1fr; }                  /* Une seule colonne : empilé */
+    .form-row{ grid-template-columns:1fr; }                      /* Champs en colonne */
+    .map-card iframe{ height: 320px; }                           /* Carte plus compacte */
 }
 @media (max-width: 640px){
     .contact-wrap{ width: min(var(--maxw), 96vw); margin: clamp(20px, 6vw, 36px) auto; }
     .contact-card{ padding:16px; }
     .info-card{ padding:14px; }
     .map-card iframe{ height: 260px; }
-    .contact-actions{ gap:8px; }
+    .contact-actions{ gap:8px; }                                 /* Boutons plus rapprochés */
 }
 
 /* =========================================================
    CURTAIN INTRO (rideaux d’ouverture) — page Contact
    ========================================================= */
 .contact-curtain{
-    position: fixed;
+    position: fixed;                 /* Recouvre la page au chargement (effet rideau) */
     inset: 0;
-    z-index: 1400;
+    z-index: 1400;                   /* Au-dessus du contenu (mais sous éventuelles lightbox si >) */
     pointer-events: auto;
     background: #000;
     overflow: hidden;
 }
 .curtain-panel{
-    position: absolute; top:0; bottom:0; width: 52vw;
+    position: absolute; top:0; bottom:0; width: 52vw; /* Deux panneaux qui couvrent l'écran */
     background: #0b0b0b;
-    transform: translateX(0);
+    transform: translateX(0);        /* Position initiale : visibles */
 }
 .curtain-panel.left{ left:0; }
 .curtain-panel.right{ right:0; }
 
 .curtain-panel.left::after,
 .curtain-panel.right::after{
-    content:""; position:absolute; top:0; bottom:0; width:3px; background: var(--gold);
+    content:""; position:absolute; top:0; bottom:0; width:3px; background: var(--gold); /* Filet doré sur le bord */
 }
 .curtain-panel.left::after{ right:0; }
 .curtain-panel.right::after{ left:0; }
 
 .curtain-center{
     position: relative;
-    z-index: 2;
+    z-index: 2;                      /* Texte/CTA au-dessus des panneaux */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -284,7 +303,7 @@ textarea:-webkit-autofill{
     color: #fff;
     height: 100%;
     padding: 16px;
-    background: radial-gradient(1000px 300px at 50% 40%, rgba(185,150,90,.06), transparent 60%);
+    background: radial-gradient(1000px 300px at 50% 40%, rgba(185,150,90,.06), transparent 60%); /* Léger halo doré */
 }
 
 .curtain-title{
@@ -313,8 +332,9 @@ textarea:-webkit-autofill{
 }
 .curtain-cta:active{ transform: translateY(1px); }
 
-.curtain-fallback{ display:none; margin-top: 12px; color:#fff; text-decoration: underline; }
+.curtain-fallback{ display:none; margin-top: 12px; color:#fff; text-decoration: underline; } /* Lien de secours éventuel */
 
+/* État "reveal" : anime les panneaux vers l'extérieur pour montrer la page */
 .contact-curtain.reveal .curtain-panel.left{
     transform: translateX(-102%);
     transition: transform .7s cubic-bezier(.22,.61,.36,1);
@@ -324,7 +344,7 @@ textarea:-webkit-autofill{
     transition: transform .7s cubic-bezier(.22,.61,.36,1);
 }
 .contact-curtain.reveal .curtain-center{
-    animation: curtainFade 480ms ease forwards;
+    animation: curtainFade 480ms ease forwards; /* Le texte s'estompe */
     animation-delay: 120ms;
 }
 @keyframes curtainFade{
@@ -335,11 +355,12 @@ textarea:-webkit-autofill{
     .contact-curtain.reveal .curtain-panel.left,
     .contact-curtain.reveal .curtain-panel.right{
         transition: none !important;
-        transform: translateX(-102%) !important;
+        transform: translateX(-102%) !important; /* Passe direct à l'état ouvert */
     }
-    .contact-curtain{ display:none !important; }
+    .contact-curtain{ display:none !important; } /* Supprime purement l'effet si l'utilisateur réduit les animations */
     #contact-page{ display:block !important; }
 }
-.contact-curtain .curtain-panel::after { display: none !important; }
+.contact-curtain .curtain-panel::after { display: none !important; } /* Désactive le filet doré si besoin via spécificité */
 
+/* Sécurité : reset marge body au cas où */
 body { margin: 0; }
