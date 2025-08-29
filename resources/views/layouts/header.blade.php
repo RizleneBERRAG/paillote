@@ -1,4 +1,5 @@
 <header class="site-header">
+
     <div class="header-inner">
 
         {{-- =================== PARTIE GAUCHE ===================
@@ -54,3 +55,4 @@
 
     </div>
 </header>
+

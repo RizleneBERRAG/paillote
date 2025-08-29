@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="fr">
 <head>
+    <!-- Favicon classique -->
+    <link rel="icon" type="images/png" sizes="32x32" href="{{ asset('images/favicon.ico.png') }}">
+
+    <!-- Optionnel : pour compatibilité max -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico.png') }}">
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
