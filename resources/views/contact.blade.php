@@ -81,11 +81,11 @@
 
                         <div class="form-row">
                             <div class="form-field">
-                                <label for="c_name">Nom</label>
+                                <label for="c_name">Nom*</label>
                                 <input id="c_name" name="name" type="text" autocomplete="name" required value="{{ old('name') }}">
                             </div>
                             <div class="form-field">
-                                <label for="c_email">E-mail</label>
+                                <label for="c_email">E-mail*</label>
                                 <input id="c_email" name="email" type="email" autocomplete="email" required value="{{ old('email') }}">
                             </div>
                         </div>
@@ -96,9 +96,9 @@
                                 <input id="c_phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" value="{{ old('phone') }}">
                             </div>
                             <div class="form-field">
-                                <label for="c_subject">Sujet</label>
+                                <label for="c_subject">Sujet*</label>
                                 <select id="c_subject" name="subject" required>
-                                    <option value="" disabled selected>Choisir un sujet</option>
+                                    <option value="" disabled selected>Choisir un sujet*</option>
                                     <option value="reservation" @selected(old('subject')==='reservation')>Réservation</option>
                                     <option value="devis" @selected(old('subject')==='devis')>Devis / groupe</option>
                                     <option value="evenement" @selected(old('subject')==='evenement')>Événement</option>
@@ -108,13 +108,13 @@
                         </div>
 
                         <div class="form-field">
-                            <label for="c_message">Message</label>
+                            <label for="c_message">Message*</label>
                             <textarea id="c_message" name="message" rows="5" required placeholder="Dites-nous tout…">{{ old('message') }}</textarea>
                         </div>
 
                         <label class="check">
                             <input type="checkbox" id="consent" name="consent" required>
-                            <span>J’accepte que mes données soient utilisées pour traiter ma demande.</span>
+                            <span>J’accepte que mes données soient utilisées pour traiter ma demande.*</span>
                         </label>
 
                         {{-- Honeypot anti-spam --}}
