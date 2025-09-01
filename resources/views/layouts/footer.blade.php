@@ -67,12 +67,12 @@
                 </address>
 
                 <div class="socials">
-                    <a class="social" href="#" aria-label="Facebook">
+                    <a class="social" href="https://www.facebook.com/profile.php?id=61553619356097&locale=fr_FR" aria-label="Facebook">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                     </a>
-                    <a class="social" href="#" aria-label="Instagram">
+                    <a class="social" href="https://www.instagram.com/la_paillote_fidesienne_?igsh=MWd1NjE3aDJ1ejY2cg==" aria-label="Instagram">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>

@@ -37,12 +37,12 @@
                 <a href="{{ route('horaires') }}" class="menu-hours">HORAIRES</a>
 
                 <div class="menu-socials" aria-label="Réseaux sociaux">
-                    <a href="#" aria-label="Facebook" class="s s-fb">
+                    <a href="https://www.facebook.com/profile.php?id=61553619356097&locale=fr_FR" aria-label="Facebook" class="s s-fb">
                         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Instagram" class="s s-ig">
+                    <a href="https://www.instagram.com/la_paillote_fidesienne_?igsh=MWd1NjE3aDJ1ejY2cg==" aria-label="Instagram" class="s s-ig">
                         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <rect x="3" y="3" width="18" height="18" rx="5" ry="5"/>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>

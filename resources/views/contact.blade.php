@@ -106,12 +106,11 @@
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-field">
                             <label for="c_message">Message*</label>
                             <textarea id="c_message" name="message" rows="5" required placeholder="Dites-nous tout…">{{ old('message') }}</textarea>
                         </div>
-
+                        <br>
                         <label class="check">
                             <input type="checkbox" id="consent" name="consent" required>
                             <span>J’accepte que mes données soient utilisées pour traiter ma demande.*</span>
@@ -119,6 +118,7 @@
 
                         {{-- Honeypot anti-spam --}}
                         <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+                        <br>
 
                         <button class="btn-solid-gold" id="contact-submit" type="submit">Envoyer</button>
                     </form>
