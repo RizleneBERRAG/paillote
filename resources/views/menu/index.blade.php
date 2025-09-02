@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>La Paillote Fidésienne — Menu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="images/png" sizes="32x32" href="{{ asset('images/favicon.ico.png') }}">
 
     {{-- CSS globaux --}}
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
@@ -12,11 +13,14 @@
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     {{-- CSS carte (thème sombre + doré, slider tactile, lightbox) --}}
     <link rel="stylesheet" href="{{ asset('css/carte.css') }}">
+
 </head>
-<body>
+<body class="menu-page">
 
 {{-- HEADER & MENU OVERLAY --}}
-@include('layouts.header')
+<div class="no-fixed-header">
+    @include('layouts.header')
+</div>
 @include('layouts.menu')
 
 <main class="container">
@@ -34,7 +38,6 @@
         <a class="pill {{ $active==='sandwiches' ? 'is-active' : '' }}" href="{{ $url('sandwiches') }}">Sandwiches</a>
         <a class="pill {{ $active==='salades' ? 'is-active' : '' }}" href="{{ $url('salades') }}">Salades</a>
         <a class="pill {{ $active==='desserts' ? 'is-active' : '' }}" href="{{ $url('desserts') }}">Desserts</a>
-
     </nav>
 
     <hr class="sep">
@@ -99,7 +102,7 @@
 {{-- FOOTER --}}
 @include('layouts.footer')
 
-{{-- Lightbox globale (une seule instance) --}}
+{{-- Lightbox globale --}}
 <div id="img-lightbox" class="img-lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true">
     <div class="img-lightbox-backdrop"></div>
     <figure class="img-lightbox-panel">
@@ -109,45 +112,86 @@
     </figure>
 </div>
 
-{{-- Script lightbox (léger, sans dépendances) --}}
+{{-- Scripts --}}
 <script>
-    document.addEventListener('click', e => {
-        const btn = e.target.closest('.see-photo');
-        if (btn) {
-            const box = document.getElementById('img-lightbox');
-            const img = document.getElementById('img-lightbox-img');
-            const caption = document.getElementById('img-lightbox-caption');
-            img.src = btn.dataset.img || '';
-            caption.textContent = btn.dataset.title || '';
+    /**
+     * Lightbox robuste (ouvre sur .see-photo ET .thumb, se ferme partout)
+     * - ferme sur croix, clic hors panneau, Escape
+     * - désactive le scroll uniquement quand ouverte
+     * - pas d'erreurs si un élément manque
+     */
+    (function () {
+        const qs  = (sel, root=document) => root.querySelector(sel);
+        const qsa = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+        const box     = qs('#img-lightbox');
+        const img     = qs('#img-lightbox-img');
+        const caption = qs('#img-lightbox-caption');
+        const closeBt = qs('.img-lightbox-close');
+
+        if (!box || !img || !caption || !closeBt) return; // sécurité si markup absent
+
+        let isOpen = false;
+
+        function openLightbox(src, title) {
+            if (!src) return;
+            img.src = src;
+            caption.textContent = title || '';
             box.hidden = false;
             box.setAttribute('aria-hidden', 'false');
             document.documentElement.classList.add('no-scroll');
-            return;
+            isOpen = true;
         }
-        if (e.target.closest('.img-lightbox-close') || e.target.closest('.img-lightbox-backdrop')) {
-            const box = document.getElementById('img-lightbox');
-            const img = document.getElementById('img-lightbox-img');
-            const caption = document.getElementById('img-lightbox-caption');
+
+        function closeLightbox() {
+            if (!isOpen) return;
             img.src = '';
             caption.textContent = '';
-            box.hidden = true;
             box.setAttribute('aria-hidden', 'true');
+            box.hidden = true;
             document.documentElement.classList.remove('no-scroll');
+            isOpen = false;
         }
-    });
 
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            document.querySelector('.img-lightbox-close')?.click();
-        }
-    });
+        // Délégué : ouvre en cliquant sur .see-photo OU l’image .thumb
+        document.addEventListener('click', (e) => {
+            // Bouton "Voir la photo"
+            const btn = e.target.closest('.see-photo');
+            if (btn) {
+                e.preventDefault();
+                openLightbox(btn.dataset.img, btn.dataset.title);
+                return;
+            }
+
+            // Image de la carte
+            const pic = e.target.closest('.thumb');
+            if (pic) {
+                // on prend l'URL de l'image affichée + titre = alt ou texte du produit
+                const src   = pic.getAttribute('src');
+                const title = pic.getAttribute('alt') || pic.closest('.card')?.querySelector('.item-title span')?.textContent || '';
+                openLightbox(src, title);
+                return;
+            }
+
+            // Clics de fermeture (croix ou backdrop)
+            if (e.target.closest('.img-lightbox-close') || e.target.closest('.img-lightbox-backdrop')) {
+                e.preventDefault();
+                closeLightbox();
+                return;
+            }
+        });
+
+        // Escape = fermer
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Défense : si une img ne charge pas, on ferme proprement
+        img.addEventListener('error', closeLightbox);
+    })();
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cat = new URLSearchParams(location.search).get('cat');
-        if (cat) document.getElementById(cat)?.scrollIntoView({behavior:'smooth', block:'start'});
-    });
-</script>
+
+
 
 <script src="{{ asset('js/menu.js') }}" defer></script>
 <script src="{{ asset('js/equipe.js') }}" defer></script>

@@ -10,6 +10,9 @@ header{
     background:#fff;
     border-bottom:1px solid #ddd; /* fine séparation grise */
 }
+.page-menu .site-header {
+    position: static !important;
+}
 
 /* ===============================
    HEADER COLLANT (sticky au scroll)
