@@ -1,103 +1,163 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // === EmailJS === //
-    const EMAILJS_SERVICE_ID  = "service_j8gsazd";
-    const EMAILJS_TEMPLATE_ID = "template_mi664sv";
-    const EMAILJS_PUBLIC_KEY  = "0inxyCI23tIIDpDhL";
+/* =========================================================================
+   Contact page – curtain intro + EmailJS + fallback Laravel submit
+   Fichier : public/js/contact-intro.js
+   ======================================================================== */
 
-    // Init SDK (une seule fois)
-    if (window.emailjs) {
-        try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch(e){ console.warn("EmailJS init:", e); }
+/* =======================
+   0) EmailJS – initialiser
+   =======================
+
+*/
+(function initEmailJS() {
+    if (window.emailjs && typeof emailjs.init === 'function') {
+        try { emailjs.init('0inxyCI23tIIDpDhL'); } catch (e) { console.warn('EmailJS init:', e); }
     }
+})();
 
-    /* ---------- Rideau d’intro ---------- */
-    const curtain     = document.querySelector(".contact-curtain");
-    const btnReveal   = document.getElementById("revealContact");
-    const contactPage = document.getElementById("contact-page");
+/* ============================================================
+   1) Rideau d’intro : clic sur “Entrer” => anime puis affiche
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const curtain      = document.querySelector('.contact-curtain');
+    const enterBtn     = document.getElementById('revealContact');
+    const pageWrapper  = document.getElementById('contact-page');
 
-    if (curtain && btnReveal && contactPage) {
-        contactPage.style.display = "none";
-        curtain.setAttribute("aria-hidden", "false");
+    const openPage = () => {
+        if (!curtain || !pageWrapper) return;
+        // Déclenche l’animation CSS
+        curtain.classList.add('reveal');
 
-        const openCurtain = () => {
-            curtain.classList.add("reveal");
-            setTimeout(() => {
-                curtain.style.display = "none";
-                curtain.setAttribute("aria-hidden", "true");
-                contactPage.style.display = "block";
-                contactPage.animate(
-                    [{opacity:0, transform:"translateY(6px)"},{opacity:1, transform:"none"}],
-                    {duration:320, easing:"ease-out"}
-                );
-            }, 760);
+        // Après la transition, on masque le rideau et on montre la page
+        const done = () => {
+            curtain.style.display = 'none';
+            pageWrapper.style.display = 'block';
+            curtain.removeEventListener('transitionend', done);
+            curtain.removeEventListener('animationend', done);
         };
 
-        btnReveal.addEventListener("click", (e)=>{ e.preventDefault(); openCurtain(); });
-        curtain.addEventListener("click", (e)=>{ if (!e.target.closest(".curtain-cta")) openCurtain(); });
-        window.addEventListener("keydown", (e)=>{ if (e.key === "Escape") openCurtain(); });
+        // Si l’utilisateur préfère réduire les animations,
+        // le CSS met déjà display:none, mais on sécurise :
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) {
+            done();
+        } else {
+            // Selon le navigateur, la fin peut être "transitionend" ou "animationend"
+            curtain.addEventListener('transitionend', done);
+            curtain.addEventListener('animationend', done);
+            // Sécurité (au cas où l’évènement ne se déclenche pas)
+            setTimeout(done, 900);
+        }
+    };
+
+    if (enterBtn) enterBtn.addEventListener('click', openPage);
+    // Fallback clavier : Enter/Space
+    if (enterBtn) {
+        enterBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPage(); }
+        });
     }
 
-    /* ---------- Formulaire → EmailJS ---------- */
-    const form           = document.getElementById("contact-form");
-    const loadingOverlay = document.getElementById("loadingOverlay");
-    const resultBox      = document.getElementById("result");
-    const btnSubmit      = document.getElementById("contact-submit");
+    // Accessibilité : si hash direct vers le contenu
+    if (location.hash === '#contact-page') {
+        if (curtain) curtain.style.display = 'none';
+        if (pageWrapper) pageWrapper.style.display = 'block';
+    }
+});
+
+/* ============================================================
+   2) Envoi du formulaire : EmailJS puis submit Laravel (BDD)
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const form      = document.getElementById('contact-form');
+    const overlay   = document.getElementById('loadingOverlay');
+    const resultEl  = document.getElementById('result');
+    const submitBtn = document.getElementById('contact-submit');
 
     if (!form) return;
 
-    const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const setBusy = (busy) => {
+        if (overlay) overlay.style.display = busy ? 'grid' : 'none';
+        if (submitBtn) {
+            submitBtn.disabled = busy;
+            submitBtn.setAttribute('aria-busy', busy ? 'true' : 'false');
+        }
+    };
 
-    form.addEventListener("submit", async (e) => {
+    const showMessage = (msg, type = 'info') => {
+        if (!resultEl) return;
+        resultEl.textContent = msg || '';
+        resultEl.className = ''; // reset
+        resultEl.classList.add(type === 'error' ? 'text-error' : 'text-success');
+        // (Tu peux styler .text-error / .text-success dans contact.css si tu veux)
+    };
+
+    // Petit check côté client pour éviter les allers/retours inutiles
+    const quickValidate = () => {
+        const name    = form.querySelector('[name="name"]')?.value?.trim();
+        const email   = form.querySelector('[name="email"]')?.value?.trim();
+        const message = form.querySelector('[name="message"]')?.value?.trim();
+        const consent = form.querySelector('[name="consent"]')?.checked;
+
+        if (!name || !email || !message || !consent) {
+            showMessage('Veuillez renseigner les champs obligatoires et accepter le traitement des données.', 'error');
+            return false;
+        }
+        return true;
+    };
+
+    form.addEventListener('submit', async (e) => {
+        // On intercepte toujours pour placer EmailJS d’abord
         e.preventDefault();
+        showMessage('');
+        setBusy(true);
 
-        if (!window.emailjs) {
-            resultBox.innerHTML = "<p class='text-danger'>Service d’envoi indisponible.</p>";
-            return;
-        }
-
-        // IDs HTML (avec préfixe c_)
-        const name    = document.getElementById("c_name")?.value?.trim()    || "";
-        const email   = document.getElementById("c_email")?.value?.trim()   || "";
-        const phone   = document.getElementById("c_phone")?.value?.trim()   || "";
-        const subject = document.getElementById("c_subject")?.value?.trim() || "";
-        const message = document.getElementById("c_message")?.value?.trim() || "";
-        const consent = document.getElementById("consent")?.checked || false;
-
-        if (!name || !email || !subject || !message) {
-            resultBox.innerHTML = "<p class='text-danger'>Merci de remplir tous les champs obligatoires.</p>";
-            return;
-        }
-        if (!isValidEmail(email)) {
-            resultBox.innerHTML = "<p class='text-danger'>L’e-mail n’est pas valide.</p>";
-            return;
-        }
-        if (!consent) {
-            resultBox.innerHTML = "<p class='text-danger'>Merci d’accepter le traitement de vos données.</p>";
-            return;
-        }
-
-        const params = {
-            name:name,
-            email:email,
-            phone:phone,
-            subject:subject,
-            message:message,
-        };
-
-        // UI lock
-        if (loadingOverlay) loadingOverlay.style.display = "flex";
-        if (btnSubmit) { btnSubmit.disabled = true; btnSubmit.dataset.originalText = btnSubmit.textContent; btnSubmit.textContent = "Envoi…"; }
+        const emailJsIsReady = !!(window.emailjs && typeof emailjs.sendForm === 'function');
 
         try {
-            const res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
-            console.log("EmailJS success:", res);
-            resultBox.innerHTML = "<p class='text-success'>Message envoyé avec succès ✅</p>";
-            form.reset();
+            // 1) Validation rapide côté client
+            if (!quickValidate()) {
+                setBusy(false);
+                return;
+            }
+
+            // 2) Si EmailJS est dispo → envoyer l’e-mail via EmailJS
+            if (emailJsIsReady) {
+                const SERVICE_ID  = 'service_j8gsazd';
+                const TEMPLATE_ID = 'template_mi664sv';
+
+                await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form);
+            }
+
+            // 3) Ensuite, on soumet réellement le formulaire
+            //    pour que Laravel enregistre en base (ContactController@send)
+            form.submit();
+
+            // NB : on ne clear pas l’overlay ici car un redirect survient.
+            // Si jamais le redirect est annulé (erreurs de validation), Laravel
+            // renverra la page et l’overlay sera de toute façon réinitialisé.
+
         } catch (err) {
-            console.error("EmailJS error:", err);
-            resultBox.innerHTML = "<p class='text-danger'>Erreur lors de l’envoi. Merci de réessayer.</p>";
-        } finally {
-            if (loadingOverlay) loadingOverlay.style.display = "none";
-            if (btnSubmit) { btnSubmit.disabled = false; btnSubmit.textContent = btnSubmit.dataset.originalText || "Envoyer"; }
+            console.error('EmailJS error:', err);
+            setBusy(false);
+
+            // Fallback : si l’e-mail échoue, on sauvegarde quand même en BDD
+            // en envoyant le POST natif vers Laravel.
+            try {
+                form.submit();
+            } catch (submitErr) {
+                console.error('Fallback submit error:', submitErr);
+                showMessage("Impossible d'envoyer votre message pour le moment. Réessayez plus tard.", 'error');
+            }
         }
     });
 });
+
+/* ============================================================
+   3) Confort : auto-resize du textarea (si pas déjà dans la vue)
+   ============================================================ */
+document.addEventListener('input', (e) => {
+    const ta = e.target.matches('#c_message') ? e.target : null;
+    if (!ta) return;
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+}, { passive: true });

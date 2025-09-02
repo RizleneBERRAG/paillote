@@ -51,12 +51,14 @@
 
         {{-- FLASH messages --}}
         <section class="contact-wrap">
-            @if (session('status'))
-                <p class="flash flash-ok">{{ session('status') }}</p>
+            @if (session('contact.success'))
+                <p class="flash flash-ok">{{ session('contact.success') }}</p>
             @endif
-            @if ($errors->any())
-                <p class="flash flash-ko">{{ $errors->first() }}</p>
+
+            @if ($errors->contact?->any())
+                <p class="flash flash-ko">{{ $errors->contact->first() }}</p>
             @endif
+
         </section>
 
         {{-- FORMULAIRE + INFOS / CARTE --}}

@@ -36,6 +36,7 @@ class ContactController extends Controller
         // - input('champ', 'fallback') lit "champ" et, si absent, prend "fallback".
         // - boolean('consent') convertit automatiquement en true/false (case à cocher).
         $payload = [
+
             'name'    => $request->input('name',    $request->input('nom')),
             'email'   => $request->input('email',   $request->input('mail')),
             'phone'   => $request->input('phone',   $request->input('telephone')),
@@ -113,6 +114,13 @@ class ContactController extends Controller
         // with('status', ...) place un message flash en session.
         // Dans la vue, je l’affiches avec :  @if(session('status')) ... @endif
         // back() renvoie l’utilisateur sur la page du formulaire.
-        return back()->with('status', 'Merci, votre message a bien été envoyé !');
+// ... validation ...
+        if ($validator->fails()) {
+            // 👇 bag d'erreurs nommé "contact"
+            return back()->withErrors($validator, 'contact')->withInput();
+        }
+
+// ... create ContactMessage ...
+        return back()->with('contact.success', 'Merci, votre message a bien été envoyé !');
     }
 }
